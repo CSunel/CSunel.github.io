@@ -1,0 +1,181 @@
+---
+const navItems = [
+  { href: "#haqqimda", label: "Haqqımda" },
+  { href: "#bacariqlar", label: "Bacarıqlar" },
+  { href: "#layiheler", label: "Layihələr" },
+  { href: "#elaqe", label: "Əlaqə" }
+];
+---
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="logo">
+      <span class="logo-text">TR</span>
+      <span class="logo-dot"></span>
+    </a>
+    
+    <ul class="nav-list">
+      {navItems.map((item, index) => (
+        <li class="nav-item" style={`animation-delay: ${index * 0.1}s`}>
+          <a href={item.href} class="nav-link">
+            <span class="nav-number">0{index + 1}</span>
+            <span class="nav-label">{item.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <button class="menu-toggle" aria-label="Menyu">
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+      <span class="menu-line"></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: var(--space-lg) 0;
+    background: linear-gradient(180deg, var(--color-black) 0%, transparent 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text {
+    position: relative;
+  }
+
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gray-400);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .logo:hover .logo-dot {
+    background-color: var(--color-white);
+  }
+
+  .nav-list {
+    display: none;
+    list-style: none;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 768px) {
+    .nav-list {
+      display: flex;
+    }
+  }
+
+  .nav-item {
+    opacity: 0;
+    animation: slideIn 0.5s ease forwards;
+  }
+
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-number {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-gray-600);
+    letter-spacing: 0.15em;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-gray-300);
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--space-sm);
+    right: var(--space-sm);
+    height: 1px;
+    background-color: var(--color-white);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-base);
+  }
+
+  .nav-link:hover .nav-number {
+    color: var(--color-gray-400);
+  }
+
+  .nav-link:hover .nav-label {
+    color: var(--color-white);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--space-sm);
+    cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  .menu-line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--color-gray-300);
+    transition: all var(--transition-fast);
+  }
+
+  .menu-toggle:hover .menu-line {
+    background-color: var(--color-white);
+  }
+
+  .menu-toggle:hover .menu-line:nth-child(1) {
+    transform: translateX(4px);
+  }
+
+  .menu-toggle:hover .menu-line:nth-child(3) {
+    transform: translateX(-4px);
+  }
+</style>

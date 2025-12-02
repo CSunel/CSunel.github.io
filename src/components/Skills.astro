@@ -1,0 +1,310 @@
+---
+const skillCategories = [
+  {
+    title: "Proqramlaşdırma Dilləri",
+    icon: "code",
+    skills: [
+      {
+        name: "C++",
+        level: 85,
+        description: "Oyun inkişafı, performans-kritik sistemlər, Unreal Engine"
+      },
+      {
+        name: "Rust",
+        level: 70,
+        description: "Sistem proqramlaşdırması, memory-safe kod yazımı"
+      },
+      {
+        name: "C#",
+        level: 75,
+        description: "ASP.NET, web services, backend development"
+      }
+    ]
+  },
+  {
+    title: "Oyun İnkişafı",
+    icon: "game",
+    skills: [
+      {
+        name: "Unreal Engine",
+        level: 80,
+        description: "Oyun mühərriki, vizual effektlər, gameplay sistemləri"
+      },
+      {
+        name: "Blueprint",
+        level: 85,
+        description: "Vizual scripting, prototipləmə, oyun mexanikası"
+      }
+    ]
+  },
+  {
+    title: "Web Development",
+    icon: "web",
+    skills: [
+      {
+        name: "ASP.NET",
+        level: 70,
+        description: "Web API, MVC, backend xidmətləri"
+      }
+    ]
+  }
+];
+---
+
+<section id="bacariqlar" class="section skills">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-number">02</span>
+      <h2>Bacarıqlar</h2>
+    </div>
+    
+    <div class="skills-intro">
+      <p>
+        Müxtəlif texnologiyalarla işləyirəm - oyun inkişafından sistem 
+        proqramlaşdırmasına, web development-dən vizual scripting-ə qədər. 
+        Hər bir texnologiya öz güclü tərəfləri ilə layihələrimə dəyər qatır.
+      </p>
+    </div>
+    
+    <div class="skills-grid">
+      {skillCategories.map((category, catIndex) => (
+        <div class="skill-category" style={`animation-delay: ${catIndex * 0.2}s`}>
+          <div class="category-header">
+            <div class="category-icon">
+              {category.icon === "code" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M8 6L3 12l5 6M16 6l5 6-5 6M14 4l-4 16"/>
+                </svg>
+              )}
+              {category.icon === "game" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="6" width="20" height="12" rx="2"/>
+                  <path d="M6 12h4M8 10v4M14 10h.01M18 12h.01"/>
+                </svg>
+              )}
+              {category.icon === "web" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10"/>
+                </svg>
+              )}
+            </div>
+            <h3 class="category-title">{category.title}</h3>
+          </div>
+          
+          <div class="category-skills">
+            {category.skills.map((skill, skillIndex) => (
+              <div class="skill-item" style={`animation-delay: ${(catIndex * 0.2) + (skillIndex * 0.1)}s`}>
+                <div class="skill-header">
+                  <span class="skill-name">{skill.name}</span>
+                  <span class="skill-percent">{skill.level}%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style={`--progress: ${skill.level}%`}></div>
+                </div>
+                <p class="skill-description">{skill.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="skills-extra">
+      <h3 class="extra-title">Əlavə Bacarıqlar</h3>
+      <div class="extra-tags">
+        <span class="extra-tag">Git</span>
+        <span class="extra-tag">GitHub</span>
+        <span class="extra-tag">Visual Studio</span>
+        <span class="extra-tag">VS Code</span>
+        <span class="extra-tag">Problem Həlli</span>
+        <span class="extra-tag">Öyrənmə</span>
+        <span class="extra-tag">Komanda İşi</span>
+        <span class="extra-tag">Optimizasiya</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    background: var(--color-black);
+    position: relative;
+  }
+
+  .skills::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-800), transparent);
+  }
+
+  .skills-intro {
+    max-width: 700px;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .skills-intro p {
+    color: var(--color-gray-400);
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .skills-grid {
+    display: grid;
+    gap: var(--space-3xl);
+    margin-bottom: var(--space-4xl);
+  }
+
+  @media (min-width: 768px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .skills-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .skill-category {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    transition: all var(--transition-base);
+  }
+
+  .skill-category:hover {
+    border-color: var(--color-gray-700);
+    transform: translateY(-4px);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+
+  .category-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-800);
+    border-radius: var(--radius-md);
+    color: var(--color-gray-400);
+  }
+
+  .category-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .category-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .category-skills {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-name {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .skill-percent {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+  }
+
+  .skill-bar {
+    height: 4px;
+    background: var(--color-gray-800);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-progress {
+    height: 100%;
+    width: var(--progress);
+    background: linear-gradient(90deg, var(--color-gray-600), var(--color-gray-400));
+    border-radius: 2px;
+    transform-origin: left;
+    animation: progressFill 1s ease forwards;
+  }
+
+  @keyframes progressFill {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+
+  .skill-description {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+  }
+
+  .skills-extra {
+    padding-top: var(--space-3xl);
+    border-top: 1px solid var(--color-gray-800);
+  }
+
+  .extra-title {
+    font-size: 1rem;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-xl);
+    font-weight: 500;
+  }
+
+  .extra-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .extra-tag {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    transition: all var(--transition-fast);
+  }
+
+  .extra-tag:hover {
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+</style>

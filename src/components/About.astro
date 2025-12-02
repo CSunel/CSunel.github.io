@@ -1,0 +1,248 @@
+---
+const stats = [
+  { value: "5+", label: "Texnologiya" },
+  { value: "∞", label: "Öyrənmə Həvəsi" },
+  { value: "AZ", label: "Ölkə" }
+];
+---
+
+<section id="haqqimda" class="section about">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-number">01</span>
+      <h2>Haqqımda</h2>
+    </div>
+    
+    <div class="about-grid">
+      <div class="about-content">
+        <div class="about-text">
+          <p class="about-lead">
+            Mən Rzalı Tərlan, Azərbaycanlı proqramçı və oyun developeriyəm.
+          </p>
+          
+          <p>
+            Texnologiyaya olan marağım erkən yaşlardan başlayıb. Kompüterlər, 
+            proqramlaşdırma və xüsusilə oyun inkişafı həmişə diqqətimi çəkib. 
+            Bu sahədə peşəkar olmaq məqsədilə müxtəlif texnologiyaları 
+            dərindən öyrənirəm.
+          </p>
+          
+          <p>
+            C++ və Unreal Engine ilə oyun inkişafı, Rust ilə sistem 
+            proqramlaşdırması, ASP.NET ilə web development - bunların hər biri
+            mənim bacarıq dəstimin bir hissəsidir. Blueprint vasitəsilə vizual 
+            scripting də iş axınımın vacib komponentidir.
+          </p>
+          
+          <p>
+            Hər zaman yeni şeylər öyrənməyə, mürəkkəb problemləri həll etməyə 
+            və keyfiyyətli kod yazmağa çalışıram. İnkişaf etmək və öyrənmək 
+            mənim üçün davamlı bir prosesdir.
+          </p>
+        </div>
+        
+        <div class="about-stats">
+          {stats.map((stat) => (
+            <div class="stat-item">
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="about-visual">
+        <div class="visual-frame">
+          <div class="frame-corner frame-corner-tl"></div>
+          <div class="frame-corner frame-corner-tr"></div>
+          <div class="frame-corner frame-corner-bl"></div>
+          <div class="frame-corner frame-corner-br"></div>
+          
+          <div class="visual-content">
+            <div class="code-block">
+              <div class="code-header">
+                <span class="code-dot"></span>
+                <span class="code-dot"></span>
+                <span class="code-dot"></span>
+                <span class="code-title">developer.az</span>
+              </div>
+              <div class="code-body">
+                <pre><code><span class="code-keyword">struct</span> <span class="code-type">Developer</span> {"{"}<br/>    <span class="code-prop">ad</span>: <span class="code-string">"Tərlan"</span>,<br/>    <span class="code-prop">soyad</span>: <span class="code-string">"Rzalı"</span>,<br/>    <span class="code-prop">ölkə</span>: <span class="code-string">"Azərbaycan"</span>,<br/>    <span class="code-prop">fokus</span>: <span class="code-string">"Game Dev"</span>,<br/>    <span class="code-prop">öyrənir</span>: <span class="code-bool">true</span>,<br/>{"}"}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: linear-gradient(180deg, var(--color-black) 0%, var(--color-black-light) 50%, var(--color-black) 100%);
+  }
+
+  .about-grid {
+    display: grid;
+    gap: var(--space-4xl);
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+
+  .about-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .about-lead {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    color: var(--color-white);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .about-text p {
+    color: var(--color-gray-400);
+    line-height: 1.8;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: var(--space-3xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-gray-800);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .visual-frame {
+    position: relative;
+    padding: var(--space-xs);
+  }
+
+  .frame-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--color-gray-700);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  .frame-corner-tl {
+    top: 0;
+    left: 0;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .frame-corner-tr {
+    top: 0;
+    right: 0;
+    border-top-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .frame-corner-bl {
+    bottom: 0;
+    left: 0;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .frame-corner-br {
+    bottom: 0;
+    right: 0;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .visual-content {
+    padding: var(--space-xl);
+  }
+
+  .code-block {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .code-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-black-lighter);
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+
+  .code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-gray-700);
+  }
+
+  .code-dot:nth-child(1) { background: var(--color-gray-600); }
+  .code-dot:nth-child(2) { background: var(--color-gray-700); }
+  .code-dot:nth-child(3) { background: var(--color-gray-800); }
+
+  .code-title {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+  }
+
+  .code-body {
+    padding: var(--space-lg);
+  }
+
+  .code-body pre {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.8;
+  }
+
+  .code-keyword { color: var(--color-gray-400); }
+  .code-type { color: var(--color-white); }
+  .code-prop { color: var(--color-gray-300); }
+  .code-string { color: var(--color-gray-500); }
+  .code-bool { color: var(--color-gray-400); }
+</style>

@@ -1,0 +1,322 @@
+---
+const techStack = ["C++", "Unreal", "Blueprint", "Rust", "ASP.NET"];
+---
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="grid-overlay"></div>
+    <div class="gradient-orb gradient-orb-1"></div>
+    <div class="gradient-orb gradient-orb-2"></div>
+  </div>
+  
+  <div class="container hero-content">
+    <div class="hero-intro fade-in stagger-1">
+      <span class="intro-line"></span>
+      <span class="intro-text">Salam, mən</span>
+    </div>
+    
+    <h1 class="hero-title fade-in stagger-2">
+      <span class="title-line">Rzalı</span>
+      <span class="title-line title-outline">Tərlan</span>
+    </h1>
+    
+    <div class="hero-role fade-in stagger-3">
+      <span class="role-bracket">[</span>
+      <span class="role-text">Proqramçı & Oyun Developer</span>
+      <span class="role-bracket">]</span>
+    </div>
+    
+    <p class="hero-description fade-in stagger-4">
+      Azərbaycanlı proqramçı. Oyun inkişafı və sistem proqramlaşdırması sahəsində 
+      ixtisaslaşmışam. Yeni texnologiyalar öyrənməyə və mürəkkəb problemləri 
+      həll etməyə həvəsliyəm.
+    </p>
+    
+    <div class="hero-tech fade-in stagger-5">
+      {techStack.map((tech, index) => (
+        <span class="tech-tag" style={`animation-delay: ${0.5 + index * 0.1}s`}>
+          {tech}
+        </span>
+      ))}
+    </div>
+    
+    <div class="hero-cta fade-in stagger-5">
+      <a href="#layiheler" class="btn btn-primary">
+        <span>Layihələrimə Bax</span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="#elaqe" class="btn btn-secondary">
+        <span>Əlaqə</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="scroll-indicator">
+    <span class="scroll-text">Aşağı</span>
+    <div class="scroll-line">
+      <div class="scroll-dot"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(var(--color-gray-900) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-gray-900) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+
+  .gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+  }
+
+  .gradient-orb-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--color-gray-600);
+    top: -200px;
+    right: -200px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .gradient-orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-gray-700);
+    bottom: -100px;
+    left: -100px;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-intro {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .intro-line {
+    width: 60px;
+    height: 1px;
+    background: var(--color-gray-600);
+  }
+
+  .intro-text {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-gray-400);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    margin-bottom: var(--space-lg);
+  }
+
+  .title-line {
+    display: block;
+  }
+
+  .title-outline {
+    -webkit-text-stroke: 2px var(--color-gray-400);
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    transition: all var(--transition-slow);
+  }
+
+  .title-outline:hover {
+    -webkit-text-fill-color: var(--color-white);
+  }
+
+  .hero-role {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    font-family: var(--font-mono);
+  }
+
+  .role-bracket {
+    font-size: 1.5rem;
+    color: var(--color-gray-600);
+  }
+
+  .role-text {
+    font-size: 1rem;
+    color: var(--color-gray-300);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-description {
+    max-width: 600px;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-2xl);
+    line-height: 1.8;
+  }
+
+  .hero-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .tech-tag {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-400);
+    letter-spacing: 0.05em;
+    transition: all var(--transition-fast);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  .tech-tag:hover {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+  }
+
+  .btn-primary {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-gray-200);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-arrow {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-fast);
+  }
+
+  .btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-gray-300);
+    border: 1px solid var(--color-gray-700);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-gray-500);
+    color: var(--color-white);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: var(--space-2xl);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .scroll-text {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-gray-600);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: var(--color-gray-800);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-dot {
+    width: 3px;
+    height: 10px;
+    background: var(--color-gray-400);
+    border-radius: 2px;
+    position: absolute;
+    left: -1px;
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0% { top: 0; opacity: 0; }
+    30% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: 80px;
+      padding-bottom: 100px;
+    }
+
+    .scroll-indicator {
+      display: none;
+    }
+  }
+</style>

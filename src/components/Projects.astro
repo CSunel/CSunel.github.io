@@ -1,0 +1,339 @@
+---
+const projects = [
+  {
+    id: "01",
+    title: "Oyun Prototipi",
+    category: "Unreal Engine / C++",
+    description: "Unreal Engine 5 ilə inkişaf etdirilən 3D oyun prototipi. Blueprint və C++ kombinasiyası ilə gameplay mexanikası.",
+    tags: ["Unreal Engine", "C++", "Blueprint"],
+    status: "İnkişafda",
+    year: "2024"
+  },
+  {
+    id: "02",
+    title: "Sistem Aləti",
+    category: "Rust",
+    description: "Rust ilə yazılmış yüksək performanslı sistem aləti. Memory-safe və thread-safe dizayn.",
+    tags: ["Rust", "CLI", "Performance"],
+    status: "Planlaşdırılır",
+    year: "2024"
+  },
+  {
+    id: "03",
+    title: "Web API",
+    category: "ASP.NET",
+    description: "ASP.NET Core ilə RESTful API. Modern arxitektura və best practices.",
+    tags: ["ASP.NET", "C#", "REST API"],
+    status: "Planlaşdırılır",
+    year: "2024"
+  }
+];
+---
+
+<section id="layiheler" class="section projects">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-number">03</span>
+      <h2>Layihələr</h2>
+    </div>
+    
+    <div class="projects-intro">
+      <p>
+        Hazırda böyük bir layihəm yoxdur, lakin müxtəlif texnologiyalarla 
+        kiçik layihələr və prototiplər üzərində işləyirəm. Hər layihə öyrənmə 
+        və inkişaf etmək üçün bir fürsətdir.
+      </p>
+    </div>
+    
+    <div class="projects-list">
+      {projects.map((project, index) => (
+        <article class="project-card" style={`animation-delay: ${index * 0.15}s`}>
+          <div class="project-header">
+            <span class="project-number">{project.id}</span>
+            <div class="project-meta">
+              <span class="project-year">{project.year}</span>
+              <span class="project-status" data-status={project.status === "İnkişafda" ? "active" : "planned"}>
+                {project.status}
+              </span>
+            </div>
+          </div>
+          
+          <div class="project-content">
+            <span class="project-category">{project.category}</span>
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-description">{project.description}</p>
+          </div>
+          
+          <div class="project-footer">
+            <div class="project-tags">
+              {project.tags.map((tag) => (
+                <span class="project-tag">{tag}</span>
+              ))}
+            </div>
+            <div class="project-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="project-glow"></div>
+        </article>
+      ))}
+    </div>
+    
+    <div class="projects-cta">
+      <div class="cta-content">
+        <div class="cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 6v6l4 2"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </div>
+        <div class="cta-text">
+          <h3>Tezliklə Daha Çox</h3>
+          <p>Yeni layihələr üzərində işləyirəm. GitHub profilimi izləyin.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    background: linear-gradient(180deg, var(--color-black) 0%, var(--color-black-light) 100%);
+    position: relative;
+  }
+
+  .projects::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-800), transparent);
+  }
+
+  .projects-intro {
+    max-width: 700px;
+    margin-bottom: var(--space-4xl);
+  }
+
+  .projects-intro p {
+    color: var(--color-gray-400);
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .projects-list {
+    display: grid;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-4xl);
+  }
+
+  @media (min-width: 768px) {
+    .projects-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .projects-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .project-card {
+    position: relative;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    transition: all var(--transition-base);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-gray-600);
+    transform: translateY(-8px);
+  }
+
+  .project-card:hover .project-glow {
+    opacity: 1;
+  }
+
+  .project-card:hover .project-arrow svg {
+    transform: translate(3px, -3px);
+  }
+
+  .project-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: radial-gradient(ellipse at top, var(--color-gray-800) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    pointer-events: none;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .project-number {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    line-height: 1;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-xs);
+  }
+
+  .project-year {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+  }
+
+  .project-status {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .project-status[data-status="active"] {
+    background: rgba(100, 100, 100, 0.2);
+    color: var(--color-gray-300);
+    border: 1px solid var(--color-gray-700);
+  }
+
+  .project-status[data-status="planned"] {
+    background: rgba(60, 60, 60, 0.2);
+    color: var(--color-gray-500);
+    border: 1px solid var(--color-gray-800);
+  }
+
+  .project-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .project-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .project-title {
+    font-size: 1.25rem;
+    color: var(--color-white);
+    font-weight: 600;
+  }
+
+  .project-description {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    line-height: 1.6;
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-gray-800);
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-gray-600);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-gray-800);
+    border-radius: var(--radius-sm);
+  }
+
+  .project-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-600);
+  }
+
+  .project-arrow svg {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-fast);
+  }
+
+  .projects-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-xl) var(--space-2xl);
+    background: var(--color-gray-900);
+    border: 1px dashed var(--color-gray-700);
+    border-radius: var(--radius-lg);
+  }
+
+  .cta-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-500);
+  }
+
+  .cta-icon svg {
+    width: 32px;
+    height: 32px;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  .cta-text h3 {
+    font-size: 1rem;
+    color: var(--color-gray-300);
+    margin-bottom: var(--space-xs);
+  }
+
+  .cta-text p {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+</style>

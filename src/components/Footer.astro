@@ -1,0 +1,168 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">
+          <span class="logo-text">TR</span>
+          <span class="logo-dot"></span>
+        </a>
+        <p class="footer-tagline">
+          Azərbaycanlı proqramçı və oyun developer
+        </p>
+      </div>
+      
+      <div class="footer-links">
+        <a href="#haqqimda">Haqqımda</a>
+        <a href="#bacariqlar">Bacarıqlar</a>
+        <a href="#layiheler">Layihələr</a>
+        <a href="#elaqe">Əlaqə</a>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="copyright">
+          © {currentYear} Rzalı Tərlan. Bütün hüquqlar qorunur.
+        </p>
+        <p class="built-with">
+          <span class="built-icon">◆</span>
+          Astro ilə qurulub
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer-decoration">
+      <div class="decoration-line"></div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-black);
+    padding: var(--space-4xl) 0 var(--space-2xl);
+    position: relative;
+  }
+
+  .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-800), transparent);
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .logo-text {
+    letter-spacing: -0.02em;
+  }
+
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gray-500);
+    border-radius: 50%;
+  }
+
+  .footer-tagline {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .footer-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color var(--transition-fast);
+    padding: var(--space-sm);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-white);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-gray-900);
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+  }
+
+  .built-with {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+  }
+
+  .built-icon {
+    font-size: 0.5rem;
+    color: var(--color-gray-700);
+  }
+
+  .footer-decoration {
+    margin-top: var(--space-2xl);
+    display: flex;
+    justify-content: center;
+  }
+
+  .decoration-line {
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-800), transparent);
+  }
+</style>

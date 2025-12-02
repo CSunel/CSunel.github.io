@@ -1,0 +1,37 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Rzalı Tərlan | Proqramçı & Oyun Developer",
+  description = "Azərbaycanlı proqramçı Rzalı Tərlan - C++, Unreal Engine, Blueprint, Rust və ASP.NET mütəxəssisi"
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="az">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Rzalı Tərlan" />
+    <meta name="keywords" content="Rzalı Tərlan, proqramçı, developer, Azərbaycan, C++, Unreal Engine, Blueprint, Rust, ASP.NET" />
+    
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>

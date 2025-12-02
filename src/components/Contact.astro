@@ -1,0 +1,314 @@
+---
+const contactMethods = [
+  {
+    type: "email",
+    label: "E-poçt",
+    value: "terlan@example.com",
+    link: "mailto:terlan@example.com"
+  },
+  {
+    type: "github",
+    label: "GitHub",
+    value: "github.com/terlan-rzali",
+    link: "https://github.com/terlan-rzali"
+  },
+  {
+    type: "location",
+    label: "Məkan",
+    value: "Azərbaycan",
+    link: null
+  }
+];
+---
+
+<section id="elaqe" class="section contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="section-number">04</span>
+      <h2>Əlaqə</h2>
+    </div>
+    
+    <div class="contact-grid">
+      <div class="contact-content">
+        <h3 class="contact-heading">
+          Gəlin Birlikdə<br/>
+          <span class="heading-highlight">İşləyək</span>
+        </h3>
+        
+        <p class="contact-description">
+          Yeni layihələr, əməkdaşlıq fürsətləri və ya sadəcə texnologiya 
+          haqqında söhbət etmək istəyirsinizsə, mənimlə əlaqə saxlayın. 
+          Sizinlə tanış olmaqdan məmnun olaram.
+        </p>
+        
+        <div class="contact-methods">
+          {contactMethods.map((method) => (
+            <div class="contact-method">
+              <div class="method-icon">
+                {method.type === "email" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <path d="M22 6L12 13 2 6"/>
+                  </svg>
+                )}
+                {method.type === "github" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                  </svg>
+                )}
+                {method.type === "location" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                )}
+              </div>
+              <div class="method-info">
+                <span class="method-label">{method.label}</span>
+                {method.link ? (
+                  <a href={method.link} class="method-value" target="_blank" rel="noopener">
+                    {method.value}
+                  </a>
+                ) : (
+                  <span class="method-value">{method.value}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="contact-visual">
+        <div class="visual-wrapper">
+          <div class="orbit-container">
+            <div class="orbit orbit-1">
+              <div class="orbit-dot"></div>
+            </div>
+            <div class="orbit orbit-2">
+              <div class="orbit-dot"></div>
+            </div>
+            <div class="orbit orbit-3">
+              <div class="orbit-dot"></div>
+            </div>
+            <div class="center-element">
+              <span class="center-icon">→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--color-black-light);
+    position: relative;
+  }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-800), transparent);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--space-4xl);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .contact-heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.2;
+    color: var(--color-white);
+  }
+
+  .heading-highlight {
+    color: var(--color-gray-400);
+    font-style: italic;
+  }
+
+  .contact-description {
+    font-size: 1.125rem;
+    color: var(--color-gray-400);
+    line-height: 1.8;
+    max-width: 500px;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-gray-800);
+  }
+
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .contact-method:hover {
+    border-color: var(--color-gray-700);
+    transform: translateX(8px);
+  }
+
+  .method-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-400);
+    flex-shrink: 0;
+  }
+
+  .method-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .method-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .method-label {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .method-value {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-gray-300);
+    transition: color var(--transition-fast);
+  }
+
+  a.method-value:hover {
+    color: var(--color-white);
+  }
+
+  .contact-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual-wrapper {
+    width: 300px;
+    height: 300px;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .visual-wrapper {
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  .orbit-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--color-gray-800);
+    border-radius: 50%;
+  }
+
+  .orbit-1 {
+    width: 100%;
+    height: 100%;
+    animation: rotate 20s linear infinite;
+  }
+
+  .orbit-2 {
+    width: 70%;
+    height: 70%;
+    animation: rotate 15s linear infinite reverse;
+  }
+
+  .orbit-3 {
+    width: 40%;
+    height: 40%;
+    animation: rotate 10s linear infinite;
+  }
+
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .orbit-dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-gray-600);
+    border-radius: 50%;
+  }
+
+  .orbit-1 .orbit-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--color-gray-500);
+  }
+
+  .center-element {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-700);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .center-icon {
+    font-size: 1.5rem;
+    color: var(--color-gray-400);
+    animation: pulse 2s ease-in-out infinite;
+  }
+</style>
