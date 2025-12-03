@@ -13,6 +13,34 @@ const checklist = [
   "Cancellation logic üçün `tokio-util` crate-dəki `CancellationToken` kifayət edir",
   "Back-pressure mexanizmi `tokio::sync::mpsc` kanallarının `try_send` çağırışları ilə ölçülə bilər"
 ];
+
+const tokioSnippet = String.raw`use tokio::{select, task::JoinSet};
+use tokio_util::sync::CancellationToken;
+use tracing::{Instrument, info_span};
+
+pub async fn run_service(shutdown: CancellationToken) {
+    let mut set = JoinSet::new();
+
+    loop {
+        select! {
+            _ = shutdown.cancelled() => {
+                set.abort_all();
+                while let Some(res) = set.join_next().await {
+                    if let Err(e) = res { tracing::warn!(?e, "task aborted"); }
+                }
+                break;
+            }
+            Some(request) = next_request() => {
+                let child = shutdown.child_token();
+                set.spawn(async move {
+                    let span = info_span!("request", id = ?request.id);
+                    handle_request(request, child).instrument(span).await;
+                });
+            }
+        }
+    }
+}
+`;
 ---
 
 <BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
@@ -35,33 +63,7 @@ const checklist = [
         Aşağıdakı nümunə hər request üçün span açır və `CancellationToken` vasitəsilə bütün child task-ları
         sinxron şəkildə dayandırır.
       </p>
-      <pre><code class="language-rust">use tokio::{select, task::JoinSet};
-use tokio_util::sync::CancellationToken;
-use tracing::{Instrument, info_span};
-
-pub async fn run_service(shutdown: CancellationToken) {"{"}
-    let mut set = JoinSet::new();
-
-    loop {"{"}
-        select! {"{"}
-            _ = shutdown.cancelled() => {"{"}
-                set.abort_all();
-                while let Some(res) = set.join_next().await {"{"}
-                    if let Err(e) = res {"{"} tracing::warn!(?e, "task aborted"); {"}"}
-                {"}"}
-                break;
-            {"}"}
-            Some(request) = next_request() => {"{"}
-                let child = shutdown.child_token();
-                set.spawn(async move {"{"}
-                    let span = info_span!("request", id = ?request.id);
-                    handle_request(request, child).instrument(span).await;
-                {"}"});
-            {"}"}
-        {"}"}
-    {"}"}
-{"}"}
-</code></pre>
+      <pre><code class="language-rust">{tokioSnippet}</code></pre>
     </section>
 
     <section class="article-section">
