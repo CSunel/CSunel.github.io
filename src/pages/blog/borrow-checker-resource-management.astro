@@ -13,30 +13,8 @@ const takeaways = [
   "`Drop` implementasiyası ilə deterministik sərbəst buraxma əldə edilir",
   "`Arc<Mutex<_>>` kimi interior mutability konstruksiyaları real concurrent vəziyyətlər üçün audit edilməlidir"
 ];
----
 
-<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
-  <article class="article">
-    <header class="article-header">
-      <p class="article-meta">{article.date}</p>
-      <h1>{article.title}</h1>
-      <p class="article-description">{article.description}</p>
-      <div class="article-tags">
-        {article.tags.map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    </header>
-
-    <section class="article-section">
-      <h2>RAII ilə deterministik sərbəst buraxma</h2>
-      <p>
-        Rust-da resurslar (fayl deskriptoru, telemetry span, socket və s.) mütləq bir struktura bağlanmalıdır.
-        Struktura `Drop` implementasiyası verdikdə cleanup mərhələsi nə səhv nəticəsində, nə də happy-path
-        axınında unudulmur. Aşağıdakı nümunədə fayl izləyicisi kerneldən alınan handle-i idarə edir və span-ları
-        avtomatik bağlayır.
-      </p>
-      <pre><code class="language-rust">use std::{fs::File, io::Read};
+const borrowSnippet = String.raw`use std::{fs::File, io::Read};
 use tracing::{info_span, Span};
 
 pub struct WatchedFile {
@@ -66,7 +44,32 @@ impl Drop for WatchedFile {
         tracing::trace!(file = %self.path, "closing watched file");
         // span guard drop olunur, fayl avtomatik bağlanır
     }
-}</code></pre>
+}
+`;
+---
+
+<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
+  <article class="article">
+    <header class="article-header">
+      <p class="article-meta">{article.date}</p>
+      <h1>{article.title}</h1>
+      <p class="article-description">{article.description}</p>
+      <div class="article-tags">
+        {article.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <section class="article-section">
+      <h2>RAII ilə deterministik sərbəst buraxma</h2>
+      <p>
+        Rust-da resurslar (fayl deskriptoru, telemetry span, socket və s.) mütləq bir struktura bağlanmalıdır.
+        Struktura `Drop` implementasiyası verdikdə cleanup mərhələsi nə səhv nəticəsində, nə də happy-path
+        axınında unudulmur. Aşağıdakı nümunədə fayl izləyicisi kerneldən alınan handle-i idarə edir və span-ları
+        avtomatik bağlayır.
+      </p>
+      <pre><code class="language-rust">{borrowSnippet}</code></pre>
     </section>
 
     <section class="article-section">
