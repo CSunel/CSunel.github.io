@@ -1,36 +1,53 @@
 ---
-const upcomingProjects = [
+const researchThemes = [
   {
     id: "01",
-    title: "Rust CLI Tool",
-    category: "Rust / Systems",
-    description: "Rust ilə inkişaf etdiriləcək command-line aləti. Memory-safe, sürətli və etibarlı.",
-    tags: ["Rust", "CLI", "Tokio"],
-    focus: "Sistem proqramlaşdırması öyrənmək"
+    title: "Memory-safe utilitlər",
+    context: "Rust ilə sistem səviyyəli CLI alətləri",
+    statement: "Fayl sistemi, proses idarəetməsi və log toplama ssenarilərində təhlükəsiz alternativlər hazırlamaq planlaşdırılır.",
+    focus: [
+      "Zero-cost abstractions",
+      "Static binary paylanması",
+      "Observability hook-ları"
+    ]
   },
   {
     id: "02",
-    title: "Bevy Oyun",
-    category: "Rust / Bevy Engine",
-    description: "Bevy Engine ilə 2D oyun layihəsi. ECS arxitekturası və Rust performansı.",
-    tags: ["Bevy", "Rust", "ECS", "2D"],
-    focus: "Rust ilə oyun inkişafı"
+    title: "Async servis nüvəsi",
+    context: "Tokio əsaslı mikroxidmət",
+    statement: "Structured concurrency, geri təzyiq mexanizmləri və metriklər üçün ortaq skelet üzərində işlənir.",
+    focus: [
+      "Cancellation strategiyası",
+      "Tracing-first dizayn",
+      "Metrics + logs korrelyasiyası"
+    ]
   },
   {
     id: "03",
-    title: "Unreal Prototipi",
-    category: "Unreal Engine / C++",
-    description: "Unreal Engine 5 ilə 3D oyun prototipi. Blueprint və C++ kombinasiyası.",
-    tags: ["Unreal", "C++", "Blueprint"],
-    focus: "AAA oyun inkişafı təcrübəsi"
+    title: "Observability agenti",
+    context: "Lightweight telemetry",
+    statement: "Linux serverlərində əlavə agent olmadan metrik toplamaq üçün prototip hazırlanır.",
+    focus: [
+      "eBPF əsaslı ölçümlər",
+      "Config-as-code",
+      "Minimal resurs istifadəsi"
+    ]
   }
 ];
 
-const learningGoals = [
-  { icon: "🦀", text: "Rust ecosystem-i dərindən öyrənmək" },
-  { icon: "🎮", text: "Bevy ilə tam oyun yaratmaq" },
-  { icon: "⚡", text: "Performans optimizasiyası" },
-  { icon: "🌐", text: "Open source layihələrə töhfə vermək" }
+const learningTracks = [
+  {
+    title: "Rust Atomics",
+    detail: "Arc, Mutex, RwLock, parking_lot və lock-free strukturlar." 
+  },
+  {
+    title: "Async Error Handling",
+    detail: "`thiserror`, `miette`, layered error report modelləri." 
+  },
+  {
+    title: "Deployment Ekosistemi",
+    detail: "Container-siz paylanma, systemd units, musl target-ləri." 
+  }
 ];
 ---
 
@@ -38,88 +55,62 @@ const learningGoals = [
   <div class="container">
     <div class="section-title">
       <span class="section-number">03</span>
-      <h2>Layihələr</h2>
+      <h2>Tədqiqat Fokusu</h2>
     </div>
     
     <div class="projects-intro">
       <p>
-        Hazırda böyük layihələrim yoxdur - hələ öyrənmə mərhələsindəyəm. 
-        Aşağıda planladığım və tezliklə başlayacağım layihələri görə bilərsiniz.
-        Hər layihə yeni bir şey öyrənmək üçün fürsətdir.
+        Hazır məhsul və ya kommersiya layihəsi yoxdur. Bütün vaxtım sistem proqramlaşdırması 
+        üzrə təcrübə toplamaq və gələcək açıq mənbə töhfələri üçün baza yaratmaqla keçir.
       </p>
     </div>
 
-    <!-- Learning Goals -->
-    <div class="learning-section">
-      <h3 class="learning-title">
-        <span class="learning-icon">🎯</span>
-        Öyrənmə Hədəflərim
-      </h3>
-      <div class="learning-goals">
-        {learningGoals.map((goal) => (
-          <div class="learning-goal">
-            <span class="goal-icon">{goal.icon}</span>
-            <span class="goal-text">{goal.text}</span>
-          </div>
-        ))}
+    <div class="status-panel">
+      <div>
+        <span class="status-label">Cari status</span>
+        <p>Experimentation / Research-only</p>
+      </div>
+      <div>
+        <span class="status-label">Gözlənti</span>
+        <p>Real layihələr üçün konsept sübutu hazırlamaq</p>
       </div>
     </div>
     
-    <h3 class="upcoming-title">Planladığım Layihələr</h3>
-    
     <div class="projects-list">
-      {upcomingProjects.map((project, index) => (
-        <article class="project-card upcoming" style={`animation-delay: ${index * 0.15}s`}>
+      {researchThemes.map((theme, index) => (
+        <article class="project-card" style={`animation-delay: ${index * 0.15}s`}>
           <div class="project-header">
-            <span class="project-number">{project.id}</span>
-            <div class="project-meta">
-              <span class="project-status" data-status="upcoming">
-                Tezliklə
-              </span>
-            </div>
+            <span class="project-number">{theme.id}</span>
+            <span class="project-status" data-status="upcoming">Araşdırma mərhələsi</span>
           </div>
-          
           <div class="project-content">
-            <span class="project-category">{project.category}</span>
-            <h3 class="project-title">{project.title}</h3>
-            <p class="project-description">{project.description}</p>
-            <p class="project-focus">
-              <span class="focus-label">Fokus:</span> {project.focus}
-            </p>
+            <span class="project-category">{theme.context}</span>
+            <h3 class="project-title">{theme.title}</h3>
+            <p class="project-description">{theme.statement}</p>
           </div>
-          
           <div class="project-footer">
             <div class="project-tags">
-              {project.tags.map((tag) => (
-                <span class="project-tag">{tag}</span>
+              {theme.focus.map((item) => (
+                <span class="project-tag">{item}</span>
               ))}
             </div>
           </div>
-          
           <div class="project-overlay">
-            <span class="overlay-text">Coming Soon</span>
+            <span class="overlay-text">Konsepsiya</span>
           </div>
         </article>
       ))}
     </div>
-    
-    <div class="projects-cta">
-      <div class="cta-content">
-        <div class="cta-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-          </svg>
-        </div>
-        <div class="cta-text">
-          <h3>GitHub Profilim</h3>
-          <p>Yeni layihələr başladıqda GitHub-da paylaşacam. İzləyin!</p>
-        </div>
-        <a href="https://github.com/CSunel/C" target="_blank" rel="noopener" class="cta-link">
-          <span>GitHub-a keç</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 17L17 7M17 7H7M17 7v10"/>
-          </svg>
-        </a>
+
+    <div class="learning-section">
+      <h3 class="learning-title">Öyrənmə Planı</h3>
+      <div class="learning-list">
+        {learningTracks.map((track) => (
+          <div class="learning-item">
+            <span class="learning-topic">{track.title}</span>
+            <p>{track.detail}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>
@@ -142,20 +133,44 @@ const learningGoals = [
   }
 
   .projects-intro {
-    max-width: 700px;
-    margin-bottom: var(--space-4xl);
+    max-width: 760px;
+    margin-bottom: var(--space-3xl);
   }
 
   .projects-intro p {
     color: var(--color-gray-400);
-    font-size: 1.125rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .status-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-lg);
+    background: var(--color-gray-900);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .status-label {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .status-panel p {
+    font-size: 0.95rem;
+    color: var(--color-gray-300);
+    margin-top: var(--space-xs);
   }
 
   .projects-list {
     display: grid;
     gap: var(--space-xl);
-    margin-bottom: var(--space-4xl);
+    margin-bottom: var(--space-3xl);
   }
 
   @media (min-width: 768px) {
@@ -180,85 +195,37 @@ const learningGoals = [
     flex-direction: column;
     gap: var(--space-lg);
     transition: all var(--transition-base);
-    overflow: hidden;
-    cursor: pointer;
   }
 
   .project-card:hover {
     border-color: var(--color-gray-600);
-    transform: translateY(-8px);
-  }
-
-  .project-card:hover .project-glow {
-    opacity: 1;
-  }
-
-  .project-card:hover .project-arrow svg {
-    transform: translate(3px, -3px);
-  }
-
-  .project-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    background: radial-gradient(ellipse at top, var(--color-gray-800) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity var(--transition-base);
-    pointer-events: none;
+    transform: translateY(-6px);
   }
 
   .project-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .project-number {
     font-family: var(--font-mono);
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 2rem;
     color: var(--color-gray-800);
-    line-height: 1;
-  }
-
-  .project-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-xs);
-  }
-
-  .project-year {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--color-gray-600);
   }
 
   .project-status {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.65rem;
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
+    border: 1px dashed var(--color-gray-700);
+    color: var(--color-gray-500);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
 
-  .project-status[data-status="active"] {
-    background: rgba(100, 100, 100, 0.2);
-    color: var(--color-gray-300);
-    border: 1px solid var(--color-gray-700);
-  }
-
-  .project-status[data-status="planned"] {
-    background: rgba(60, 60, 60, 0.2);
-    color: var(--color-gray-500);
-    border: 1px solid var(--color-gray-800);
-  }
-
   .project-content {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
@@ -275,21 +242,17 @@ const learningGoals = [
   .project-title {
     font-size: 1.25rem;
     color: var(--color-white);
-    font-weight: 600;
   }
 
   .project-description {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--color-gray-500);
     line-height: 1.6;
   }
 
   .project-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-top: var(--space-lg);
     border-top: 1px solid var(--color-gray-800);
+    padding-top: var(--space-md);
   }
 
   .project-tags {
@@ -300,156 +263,11 @@ const learningGoals = [
 
   .project-tag {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.7rem;
     color: var(--color-gray-600);
     padding: var(--space-xs) var(--space-sm);
-    background: var(--color-gray-800);
+    background: var(--color-gray-850);
     border-radius: var(--radius-sm);
-  }
-
-  .project-arrow {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gray-600);
-  }
-
-  .project-arrow svg {
-    width: 18px;
-    height: 18px;
-    transition: transform var(--transition-fast);
-  }
-
-  .projects-cta {
-    display: flex;
-    justify-content: center;
-  }
-
-  .cta-content {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    padding: var(--space-xl) var(--space-2xl);
-    background: var(--color-gray-900);
-    border: 1px dashed var(--color-gray-700);
-    border-radius: var(--radius-lg);
-  }
-
-  .cta-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gray-500);
-  }
-
-  .cta-icon svg {
-    width: 32px;
-    height: 32px;
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  .cta-text h3 {
-    font-size: 1rem;
-    color: var(--color-gray-300);
-    margin-bottom: var(--space-xs);
-  }
-
-  .cta-text p {
-    font-size: 0.875rem;
-    color: var(--color-gray-600);
-  }
-
-  /* Learning Section */
-  .learning-section {
-    background: var(--color-gray-900);
-    border: 1px solid var(--color-gray-800);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    margin-bottom: var(--space-3xl);
-  }
-
-  .learning-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: 1rem;
-    color: var(--color-white);
-    margin-bottom: var(--space-lg);
-  }
-
-  .learning-icon {
-    font-size: 1.25rem;
-  }
-
-  .learning-goals {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-  }
-
-  @media (max-width: 640px) {
-    .learning-goals {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .learning-goal {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background: var(--color-black-lighter);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-  }
-
-  .learning-goal:hover {
-    background: var(--color-gray-800);
-    transform: translateX(4px);
-  }
-
-  .goal-icon {
-    font-size: 1.25rem;
-  }
-
-  .goal-text {
-    font-size: 0.875rem;
-    color: var(--color-gray-300);
-  }
-
-  .upcoming-title {
-    font-size: 1rem;
-    color: var(--color-gray-400);
-    margin-bottom: var(--space-xl);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  /* Upcoming Project Card */
-  .project-card.upcoming {
-    position: relative;
-    cursor: default;
-  }
-
-  .project-card.upcoming:hover {
-    transform: translateY(-4px);
-  }
-
-  .project-focus {
-    font-size: 0.75rem;
-    color: var(--color-gray-500);
-    margin-top: var(--space-sm);
-    padding-top: var(--space-sm);
-    border-top: 1px dashed var(--color-gray-800);
-  }
-
-  .focus-label {
-    color: var(--color-gray-600);
   }
 
   .project-overlay {
@@ -457,65 +275,47 @@ const learningGoals = [
     top: var(--space-md);
     right: var(--space-md);
     padding: var(--space-xs) var(--space-sm);
-    background: var(--color-gray-800);
-    border: 1px dashed var(--color-gray-600);
+    border: 1px solid var(--color-gray-800);
     border-radius: var(--radius-sm);
-  }
-
-  .overlay-text {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
-    color: var(--color-gray-400);
+    font-size: 0.65rem;
+    color: var(--color-gray-500);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
   }
 
-  .project-status[data-status="upcoming"] {
-    background: rgba(80, 80, 80, 0.2);
+  .learning-section {
+    border-top: 1px solid var(--color-gray-800);
+    padding-top: var(--space-3xl);
+  }
+
+  .learning-title {
+    font-size: 0.95rem;
     color: var(--color-gray-400);
-    border: 1px dashed var(--color-gray-700);
+    margin-bottom: var(--space-xl);
+    letter-spacing: 0.08em;
   }
 
-  /* CTA Link */
-  .cta-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-lg);
-    background: var(--color-gray-800);
-    border: 1px solid var(--color-gray-700);
+  .learning-list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .learning-item {
+    padding: var(--space-lg);
+    border: 1px solid var(--color-gray-800);
     border-radius: var(--radius-md);
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    color: var(--color-gray-300);
-    transition: all var(--transition-fast);
-    margin-left: auto;
+    background: var(--color-gray-900);
   }
 
-  .cta-link:hover {
-    background: var(--color-gray-700);
+  .learning-topic {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
     color: var(--color-white);
   }
 
-  .cta-link svg {
-    width: 16px;
-    height: 16px;
-    transition: transform var(--transition-fast);
-  }
-
-  .cta-link:hover svg {
-    transform: translate(2px, -2px);
-  }
-
-  @media (max-width: 768px) {
-    .cta-content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .cta-link {
-      margin-left: 0;
-      justify-content: center;
-    }
+  .learning-item p {
+    font-size: 0.85rem;
+    color: var(--color-gray-500);
+    margin-top: var(--space-sm);
   }
 </style>

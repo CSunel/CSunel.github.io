@@ -1,103 +1,77 @@
 ---
-const blogPosts = [
+const articles = [
   {
     id: 1,
-    title: "Rust-da Ownership Konsepti",
-    excerpt: "Rust-un ən vacib xüsusiyyətlərindən biri olan ownership sistemini başa düşmək.",
-    category: "Rust",
-    readTime: "5 dəq",
-    date: "Tezliklə",
-    tags: ["Rust", "Memory", "Ownership"]
+    title: "Borrow Checker İlə Real Resurs İdarəsi",
+    category: "Rust Core",
+    timestamp: "Texniki qeydlər",
+    abstract: "Ownership modeli sadəcə kompilator xətası deyil. Yazıda resursların (file handle, socket, telemetry span) struktura yerləşdirilməsi, lifetime-ların modul sərhədlərində ötürülməsi və unsafe bloklarının izolyasiyası barədə danışılır.",
+    sections: [
+      "RAII pattern və Drop impl-ları ilə deterministik sərbəst buraxma",
+      "`&mut T` kontraktının concurrency baxımından təhlili",
+      "Borrow checker-i aldatmadan interior mutability istifadəsi"
+    ]
   },
   {
     id: 2,
-    title: "Bevy Engine ilə İlk Oyun",
-    excerpt: "Rust-un Bevy oyun mühərriki ilə sadə 2D oyun yaratmaq.",
-    category: "Game Dev",
-    readTime: "8 dəq",
-    date: "Tezliklə",
-    tags: ["Bevy", "Rust", "2D"]
+    title: "Tokio-da Deterministik Asinxron Axın",
+    category: "Async",
+    timestamp: "Araşdırma qeydi",
+    abstract: "Tokio runtime-ında structured concurrency qurarkən task-ların nəzarətli şəkildə dayandırılması, geri təzyiq mexanizmi və tracing span-larının idarəsi haqqında praktiki nəticələr.",
+    sections: [
+      "Cancellation token-ləri və cooperative stop",
+      "`select!` makrosu ilə back-pressure",
+      "Telemetry: `tracing` + `OpenTelemetry` inteqrasiyası"
+    ]
   },
   {
     id: 3,
-    title: "Unreal Engine Blueprint vs C++",
-    excerpt: "Blueprint və C++ arasındakı fərqlər və nə vaxt hansını istifadə etmək lazımdır.",
-    category: "Unreal",
-    readTime: "6 dəq",
-    date: "Tezliklə",
-    tags: ["Unreal", "Blueprint", "C++"]
+    title: "Diaqnostika üçün CLI Platforması",
+    category: "Tooling",
+    timestamp: "Sahə qeydi",
+    abstract: "Sistem mühəndisləri üçün hazırlanan CLI-lər sadə `println!`-dən ibarət olmamalıdır. Yazıda `clap`, `miette`, `indicatif` və `tracing` kombinasiyası ilə istifadəçi və operator təcrübəsi eyni vaxtda necə qorunur.",
+    sections: [
+      "Strukturlaşdırılmış error report formatı",
+      "Progress göstəriciləri və uzun müddətli əməliyyatlar",
+      "Log səviyyələrinin konsola və fayla paralel ötürülməsi"
+    ]
   }
 ];
-
-const categories = ["Hamısı", "Rust", "Game Dev", "Unreal"];
 ---
 
 <section id="blog" class="section blog">
   <div class="container">
     <div class="section-title">
       <span class="section-number">04</span>
-      <h2>Blog</h2>
+      <h2>Texniki Qeydlər</h2>
     </div>
     
     <div class="blog-intro">
       <p>
-        Öyrəndiklərimi və təcrübələrimi burada paylaşacam. Hazırda yazılar 
-        üzərində işləyirəm - tezliklə burada Rust, oyun inkişafı və 
-        proqramlaşdırma haqqında məqalələr tapa biləcəksiniz.
+        Aşağıdakı məqalələr real layihə olmadan aparılan tədqiqatların nəticələridir. 
+        Yazılar hazır kod bazasını deyil, tətbiq etmək istədiyim prinsipləri təsvir edir.
       </p>
     </div>
 
-    <div class="blog-coming-soon">
-      <div class="coming-soon-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 6v6l4 2"/>
-          <circle cx="12" cy="12" r="10"/>
-        </svg>
-      </div>
-      <h3>Blog Tezliklə</h3>
-      <p>Yazılar hazırlanır...</p>
-    </div>
-
-    <div class="blog-preview">
-      <h3 class="preview-title">Planladığım Yazılar</h3>
-      <div class="blog-grid">
-        {blogPosts.map((post, index) => (
-          <article class="blog-card" style={`animation-delay: ${index * 0.1}s`}>
-            <div class="blog-card-header">
-              <span class="blog-category">{post.category}</span>
-              <span class="blog-date">{post.date}</span>
-            </div>
-            
-            <h4 class="blog-title">{post.title}</h4>
-            <p class="blog-excerpt">{post.excerpt}</p>
-            
-            <div class="blog-card-footer">
-              <div class="blog-tags">
-                {post.tags.slice(0, 2).map((tag) => (
-                  <span class="blog-tag">{tag}</span>
-                ))}
-              </div>
-              <span class="blog-read-time">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 6v6l4 2"/>
-                </svg>
-                {post.readTime}
-              </span>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-
-    <div class="blog-subscribe">
-      <div class="subscribe-content">
-        <div class="subscribe-icon">✉️</div>
-        <div class="subscribe-text">
-          <h4>Yeniliklərdən Xəbərdar Olun</h4>
-          <p>Yeni yazılar əlavə edildikdə GitHub-dan izləyə bilərsiniz.</p>
-        </div>
-      </div>
+    <div class="blog-grid">
+      {articles.map((post, index) => (
+        <article class="blog-card" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="blog-card-header">
+            <span class="blog-category">{post.category}</span>
+            <span class="blog-date">{post.timestamp}</span>
+          </div>
+          <h3 class="blog-title">{post.title}</h3>
+          <p class="blog-abstract">{post.abstract}</p>
+          <ul class="blog-points">
+            {post.sections.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+          <div class="blog-note">
+            Tam mətn şəxsi qeydlərdə saxlanılır; hazır olduqda açıq mənbə kimi paylaşmağı planlaşdırıram.
+          </div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
@@ -119,65 +93,19 @@ const categories = ["Hamısı", "Rust", "Game Dev", "Unreal"];
   }
 
   .blog-intro {
-    max-width: 700px;
+    max-width: 720px;
     margin-bottom: var(--space-3xl);
   }
 
   .blog-intro p {
     color: var(--color-gray-400);
-    font-size: 1.125rem;
-    line-height: 1.8;
-  }
-
-  .blog-coming-soon {
-    text-align: center;
-    padding: var(--space-3xl);
-    background: var(--color-gray-900);
-    border: 1px dashed var(--color-gray-700);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--space-3xl);
-  }
-
-  .coming-soon-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto var(--space-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gray-500);
-  }
-
-  .coming-soon-icon svg {
-    width: 48px;
-    height: 48px;
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  .blog-coming-soon h3 {
-    font-size: 1.5rem;
-    color: var(--color-gray-300);
-    margin-bottom: var(--space-sm);
-  }
-
-  .blog-coming-soon p {
-    font-size: 0.875rem;
-    color: var(--color-gray-600);
-  }
-
-  .preview-title {
     font-size: 1rem;
-    color: var(--color-gray-400);
-    margin-bottom: var(--space-xl);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    line-height: 1.7;
   }
 
   .blog-grid {
     display: grid;
-    gap: var(--space-xl);
-    margin-bottom: var(--space-3xl);
+    gap: var(--space-2xl);
   }
 
   @media (min-width: 768px) {
@@ -186,7 +114,7 @@ const categories = ["Hamısı", "Rust", "Game Dev", "Unreal"];
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1200px) {
     .blog-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -199,15 +127,12 @@ const categories = ["Hamısı", "Rust", "Game Dev", "Unreal"];
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-    transition: all var(--transition-base);
-    opacity: 0.7;
+    gap: var(--space-lg);
+    transition: border var(--transition-base);
   }
 
   .blog-card:hover {
-    border-color: var(--color-gray-700);
-    opacity: 1;
-    transform: translateY(-4px);
+    border-color: var(--color-gray-600);
   }
 
   .blog-card-header {
@@ -218,102 +143,58 @@ const categories = ["Hamısı", "Rust", "Game Dev", "Unreal"];
 
   .blog-category {
     font-family: var(--font-mono);
-    font-size: 0.625rem;
-    color: var(--color-gray-400);
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--color-gray-800);
-    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    color: var(--color-gray-500);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
 
   .blog-date {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--color-gray-600);
   }
 
   .blog-title {
-    font-size: 1.125rem;
+    font-size: 1.15rem;
     color: var(--color-white);
     line-height: 1.4;
   }
 
-  .blog-excerpt {
-    font-size: 0.875rem;
+  .blog-abstract {
+    font-size: 0.95rem;
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .blog-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .blog-points li {
+    font-size: 0.85rem;
     color: var(--color-gray-500);
-    line-height: 1.6;
-    flex: 1;
+    padding-left: var(--space-lg);
+    position: relative;
   }
 
-  .blog-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: var(--space-md);
-    border-top: 1px solid var(--color-gray-800);
+  .blog-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-gray-600);
   }
 
-  .blog-tags {
-    display: flex;
-    gap: var(--space-xs);
-  }
-
-  .blog-tag {
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    color: var(--color-gray-600);
-    padding: var(--space-xs) var(--space-sm);
-    background: var(--color-black-lighter);
-    border-radius: var(--radius-sm);
-  }
-
-  .blog-read-time {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    font-family: var(--font-mono);
+  .blog-note {
     font-size: 0.75rem;
     color: var(--color-gray-600);
-  }
-
-  .blog-read-time svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .blog-subscribe {
-    background: var(--color-gray-900);
-    border: 1px solid var(--color-gray-800);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-  }
-
-  .subscribe-content {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-  }
-
-  .subscribe-icon {
-    font-size: 2rem;
-  }
-
-  .subscribe-text h4 {
-    font-size: 1rem;
-    color: var(--color-white);
-    margin-bottom: var(--space-xs);
-  }
-
-  .subscribe-text p {
-    font-size: 0.875rem;
-    color: var(--color-gray-500);
-  }
-
-  @media (max-width: 640px) {
-    .subscribe-content {
-      flex-direction: column;
-      text-align: center;
-    }
+    font-style: italic;
   }
 </style>

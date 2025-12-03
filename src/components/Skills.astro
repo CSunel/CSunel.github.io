@@ -1,76 +1,79 @@
 ---
-const skillCategories = [
+const capabilityGroups = [
   {
-    title: "Rust Ekosistemi",
-    icon: "rust",
-    highlight: true,
+    title: "Sistem Səviyyəsi",
+    icon: "chip",
     skills: [
       {
-        name: "Rust Language",
-        level: 75,
-        description: "Ownership, Borrowing, Lifetimes, Pattern Matching, Error Handling"
+        name: "Rust",
+        level: 82,
+        description: "Ownership modelləşməsi, lifetimes, unsafe blokların audit edilməsi."
       },
       {
-        name: "Bevy Engine",
+        name: "Memory Profiling",
         level: 70,
-        description: "ECS arxitekturası, 2D/3D oyun inkişafı, Plugin sistemi"
+        description: "`perf`, `heaptrack`, flamegraph və cache miss analizi."
       },
       {
-        name: "Tokio & Async",
-        level: 60,
-        description: "Asinxron proqramlaşdırma, concurrent sistemlər"
-      },
-      {
-        name: "Cargo & Tooling",
-        level: 80,
-        description: "Package management, testing, benchmarking, clippy"
+        name: "Linux Internals",
+        level: 65,
+        description: "procfs, cgroups, io_uring və sistem çağırışları ilə işləmə."
       }
     ]
   },
   {
-    title: "Oyun İnkişafı",
-    icon: "game",
+    title: "Asinxron İnfrastruktur",
+    icon: "network",
     skills: [
       {
-        name: "Unreal Engine",
-        level: 80,
-        description: "Oyun mühərriki, vizual effektlər, gameplay sistemləri"
+        name: "Tokio Runtime",
+        level: 68,
+        description: "Structured concurrency, cancellation, back-pressure dizaynı."
       },
       {
-        name: "Blueprint",
-        level: 85,
-        description: "Vizual scripting, prototipləmə, oyun mexanikası"
+        name: "Observability",
+        level: 66,
+        description: "`tracing`, `opentelemetry`, log sampling və mətni strukturlaşdırma."
       },
       {
-        name: "C++",
-        level: 80,
-        description: "Oyun inkişafı, performans-kritik sistemlər"
+        name: "CLI Platforması",
+        level: 75,
+        description: "`clap`, `miette`, `indicatif` ilə diaqnostika yönümlü alətlər."
       }
     ]
   },
   {
-    title: "Digər Texnologiyalar",
-    icon: "web",
+    title: "Etibarlılıq və Tooling",
+    icon: "shield",
     skills: [
       {
-        name: "C#",
-        level: 70,
-        description: "ASP.NET, web services, backend development"
+        name: "Testing",
+        level: 72,
+        description: "`cargo nextest`, property-based testlər, fuzzing (cargo-fuzz)."
       },
       {
-        name: "Git & GitHub",
-        level: 75,
-        description: "Version control, branching, collaboration"
+        name: "Build Sistemi",
+        level: 65,
+        description: "cargo workspaces, feature flag strategiyası, Make/Nix axınları."
+      },
+      {
+        name: "Dokumentasiya",
+        level: 70,
+        description: "mdBook, rustdoc, ADR-lər və texniki qeydlər."
       }
     ]
   }
 ];
 
-const rustFeatures = [
-  { icon: "🔒", title: "Memory Safety", desc: "Compile-time memory safety without GC" },
-  { icon: "⚡", title: "Zero-Cost", desc: "Abstractions with no runtime overhead" },
-  { icon: "🧵", title: "Fearless Concurrency", desc: "Safe parallel programming" },
-  { icon: "📦", title: "Cargo", desc: "Powerful package manager & build tool" }
+const methodTags = [
+  "Static binaries",
+  "Zero-cost abstractions",
+  "Deterministic CI",
+  "Tracing-first",
+  "Feature flags",
+  "Beehive benchmarking",
+  "ADR workflow",
+  "Security review"
 ];
 ---
 
@@ -83,68 +86,41 @@ const rustFeatures = [
     
     <div class="skills-intro">
       <p>
-        Müxtəlif texnologiyalarla işləyirəm - oyun inkişafından sistem 
-        proqramlaşdırmasına qədər. Rust mənim əsas fokuslarımdan biridir,
-        onun memory safety və performance xüsusiyyətləri məni cəlb edir.
+        Fokus sahəm Rust ilə sistem proqramlaşdırmasıdır. Kod bazalarının ölçülə bilən performansa,
+        deterministik davranışa və audit imkanı olan arxitekturaya sahib olması üçün çalışıram.
       </p>
     </div>
     
-    <!-- Rust Features Showcase -->
-    <div class="rust-showcase">
-      <div class="rust-showcase-header">
-        <div class="rust-logo">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M23.835 11.703l-1.008-.623-.028-.292c-.079-.702-.21-1.389-.389-2.053l.059-.336.879-.813a.417.417 0 00-.014-.59l-.956-.923a.417.417 0 00-.586-.013l-.762.708-.297-.146a10.327 10.327 0 00-1.818-.863l-.267-.19.132-.963a.417.417 0 00-.363-.467l-1.314-.164a.417.417 0 00-.467.363l-.116.854-.312-.036a10.478 10.478 0 00-2.038-.028l-.312.028-.116-.854a.417.417 0 00-.467-.363l-1.314.164a.417.417 0 00-.363.467l.132.963-.267.19a10.327 10.327 0 00-1.818.863l-.297.146-.762-.708a.417.417 0 00-.586.013l-.956.923a.417.417 0 00-.014.59l.879.813.059.336a10.397 10.397 0 00-.389 2.053l-.028.292-1.008.623a.417.417 0 00-.196.542l.503 1.22a.417.417 0 00.526.228l1.002-.396.198.256c.422.549.9 1.053 1.426 1.504l.213.183-.419.897a.417.417 0 00.168.534l1.145.695a.417.417 0 00.542-.13l.61-.812.285.106c.602.222 1.232.388 1.881.493l.301.049-.028.996a.417.417 0 00.364.43l1.303.148a.417.417 0 00.453-.366l.11-.98.304-.018c.663-.041 1.31-.138 1.936-.288l.294-.07.559.845a.417.417 0 00.535.149l1.168-.647a.417.417 0 00.188-.527l-.358-.917.218-.179c.538-.44 1.03-.934 1.466-1.474l.202-.251 1.002.396a.417.417 0 00.526-.228l.503-1.22a.417.417 0 00-.196-.542z"/>
-            <circle cx="12" cy="12" r="4.5" fill="var(--color-gray-900)"/>
-          </svg>
-        </div>
-        <div class="rust-showcase-title">
-          <h3>Niyə Rust?</h3>
-          <p>Gələcəyin sistem proqramlaşdırma dili</p>
-        </div>
-      </div>
-      <div class="rust-features-grid">
-        {rustFeatures.map((feature) => (
-          <div class="rust-feature">
-            <span class="rust-feature-icon">{feature.icon}</span>
-            <div class="rust-feature-content">
-              <h4>{feature.title}</h4>
-              <p>{feature.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-    
     <div class="skills-grid">
-      {skillCategories.map((category, catIndex) => (
-        <div class={`skill-category ${category.highlight ? 'highlight' : ''}`} style={`animation-delay: ${catIndex * 0.2}s`}>
+      {capabilityGroups.map((group, catIndex) => (
+        <div class="skill-category" style={`animation-delay: ${catIndex * 0.2}s`}>
           <div class="category-header">
             <div class="category-icon">
-              {category.icon === "rust" && (
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.835 11.703l-1.008-.623-.028-.292c-.079-.702-.21-1.389-.389-2.053l.059-.336.879-.813a.417.417 0 00-.014-.59l-.956-.923a.417.417 0 00-.586-.013l-.762.708-.297-.146a10.327 10.327 0 00-1.818-.863l-.267-.19.132-.963a.417.417 0 00-.363-.467l-1.314-.164a.417.417 0 00-.467.363l-.116.854-.312-.036a10.478 10.478 0 00-2.038-.028l-.312.028-.116-.854a.417.417 0 00-.467-.363l-1.314.164a.417.417 0 00-.363.467l.132.963-.267.19a10.327 10.327 0 00-1.818.863l-.297.146-.762-.708a.417.417 0 00-.586.013l-.956.923a.417.417 0 00-.014.59l.879.813.059.336a10.397 10.397 0 00-.389 2.053l-.028.292-1.008.623a.417.417 0 00-.196.542l.503 1.22a.417.417 0 00.526.228l1.002-.396.198.256c.422.549.9 1.053 1.426 1.504l.213.183-.419.897a.417.417 0 00.168.534l1.145.695a.417.417 0 00.542-.13l.61-.812.285.106c.602.222 1.232.388 1.881.493l.301.049-.028.996a.417.417 0 00.364.43l1.303.148a.417.417 0 00.453-.366l.11-.98.304-.018c.663-.041 1.31-.138 1.936-.288l.294-.07.559.845a.417.417 0 00.535.149l1.168-.647a.417.417 0 00.188-.527l-.358-.917.218-.179c.538-.44 1.03-.934 1.466-1.474l.202-.251 1.002.396a.417.417 0 00.526-.228l.503-1.22a.417.417 0 00-.196-.542z"/>
-                  <circle cx="12" cy="12" r="4.5" fill="var(--color-gray-900)"/>
+              {group.icon === "chip" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
                 </svg>
               )}
-              {category.icon === "game" && (
+              {group.icon === "network" && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="2" y="6" width="20" height="12" rx="2"/>
-                  <path d="M6 12h4M8 10v4M14 10h.01M18 12h.01"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 5V3m0 20v-2m7-7h2M3 12h2m12.95-4.95l1.414-1.414M6.636 17.364l-1.414 1.414m0-12.728L6.636 7.05m10.728 10.314l1.414 1.414"/>
                 </svg>
               )}
-              {category.icon === "web" && (
+              {group.icon === "shield" && (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10"/>
+                  <path d="M12 3l8 4v6c0 5-3.5 9-8 9s-8-4-8-9V7z"/>
+                  <path d="M12 11v4"/>
+                  <path d="M10 13h4"/>
                 </svg>
               )}
             </div>
-            <h3 class="category-title">{category.title}</h3>
+            <h3 class="category-title">{group.title}</h3>
           </div>
           
           <div class="category-skills">
-            {category.skills.map((skill, skillIndex) => (
+            {group.skills.map((skill, skillIndex) => (
               <div class="skill-item" style={`animation-delay: ${(catIndex * 0.2) + (skillIndex * 0.1)}s`}>
                 <div class="skill-header">
                   <span class="skill-name">{skill.name}</span>
@@ -162,16 +138,11 @@ const rustFeatures = [
     </div>
     
     <div class="skills-extra">
-      <h3 class="extra-title">Əlavə Bacarıqlar</h3>
+      <h3 class="extra-title">Metodologiya Etiketləri</h3>
       <div class="extra-tags">
-        <span class="extra-tag">Visual Studio</span>
-        <span class="extra-tag">VS Code</span>
-        <span class="extra-tag">Neovim</span>
-        <span class="extra-tag">Linux</span>
-        <span class="extra-tag">Problem Həlli</span>
-        <span class="extra-tag">Öyrənmə</span>
-        <span class="extra-tag">Debugging</span>
-        <span class="extra-tag">Optimizasiya</span>
+        {methodTags.map((tag) => (
+          <span class="extra-tag">{tag}</span>
+        ))}
       </div>
     </div>
   </div>
@@ -194,14 +165,14 @@ const rustFeatures = [
   }
 
   .skills-intro {
-    max-width: 700px;
+    max-width: 720px;
     margin-bottom: var(--space-4xl);
   }
 
   .skills-intro p {
     color: var(--color-gray-400);
-    font-size: 1.125rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   .skills-grid {
@@ -245,8 +216,8 @@ const rustFeatures = [
   }
 
   .category-icon {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,8 +227,8 @@ const rustFeatures = [
   }
 
   .category-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 
   .category-title {
@@ -287,7 +258,6 @@ const rustFeatures = [
   .skill-name {
     font-family: var(--font-mono);
     font-size: 0.875rem;
-    font-weight: 600;
     color: var(--color-white);
   }
 
@@ -330,7 +300,7 @@ const rustFeatures = [
   }
 
   .extra-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--color-gray-400);
     margin-bottom: var(--space-xl);
     font-weight: 500;
@@ -357,103 +327,5 @@ const rustFeatures = [
     border-color: var(--color-gray-600);
     color: var(--color-white);
     transform: translateY(-2px);
-  }
-
-  /* Rust Showcase */
-  .rust-showcase {
-    background: var(--color-gray-900);
-    border: 1px solid var(--color-gray-800);
-    border-radius: var(--radius-lg);
-    padding: var(--space-2xl);
-    margin-bottom: var(--space-3xl);
-  }
-
-  .rust-showcase-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-gray-800);
-  }
-
-  .rust-logo {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-gray-400);
-  }
-
-  .rust-logo svg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .rust-showcase-title h3 {
-    font-size: 1.25rem;
-    color: var(--color-white);
-    margin-bottom: var(--space-xs);
-  }
-
-  .rust-showcase-title p {
-    font-size: 0.875rem;
-    color: var(--color-gray-500);
-  }
-
-  .rust-features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-lg);
-  }
-
-  @media (max-width: 640px) {
-    .rust-features-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .rust-feature {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background: var(--color-black-lighter);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-  }
-
-  .rust-feature:hover {
-    background: var(--color-gray-800);
-    transform: translateX(4px);
-  }
-
-  .rust-feature-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-  }
-
-  .rust-feature-content h4 {
-    font-size: 0.875rem;
-    color: var(--color-white);
-    margin-bottom: var(--space-xs);
-  }
-
-  .rust-feature-content p {
-    font-size: 0.75rem;
-    color: var(--color-gray-500);
-    line-height: 1.4;
-  }
-
-  /* Highlighted Category */
-  .skill-category.highlight {
-    border-color: var(--color-gray-700);
-    background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black-lighter) 100%);
-  }
-
-  .skill-category.highlight .category-icon {
-    background: var(--color-gray-700);
-    color: var(--color-white);
   }
 </style>

@@ -21,7 +21,7 @@ const contactMethods = [
   {
     type: "location",
     label: "Məkan",
-    value: "Azərbaycan",
+    value: "Bakı, Azərbaycan",
     link: null
   }
 ];
@@ -37,14 +37,13 @@ const contactMethods = [
     <div class="contact-grid">
       <div class="contact-content">
         <h3 class="contact-heading">
-          Gəlin Birlikdə<br/>
-          <span class="heading-highlight">Əlaqə Saxlayaq</span>
+          Texniki əməkdaşlıq və ya bilik mübadiləsi üçün əlaqə kanalları.
         </h3>
         
         <p class="contact-description">
-          Proqramlaşdırma, oyun inkişafı, Rust və ya digər texnologiyalar 
-          haqqında söhbət etmək istəyirsinizsə, mənimlə əlaqə saxlayın. 
-          Həmçinin əməkdaşlıq və öyrənmə fürsətlərinə açığam.
+          Tədqiqat nəticələrini müzakirə etmək, Rust ekosistemi haqqında fikir bölüşmək 
+          və ya gələcək layihələr üçün ilkin fikir mübadiləsi aparmaq istəyirsinizsə, 
+          aşağıdakı kanallardan istifadə edə bilərsiniz.
         </p>
         
         <div class="contact-methods">
@@ -91,7 +90,7 @@ const contactMethods = [
       
       <div class="contact-form-wrapper">
         <form class="contact-form" id="contactForm">
-          <h4 class="form-title">Mesaj Göndər</h4>
+          <h4 class="form-title">Qısa Mesaj</h4>
           
           <div class="form-group">
             <label for="name" class="form-label">Ad</label>
@@ -106,28 +105,24 @@ const contactMethods = [
           <div class="form-group">
             <label for="subject" class="form-label">Mövzu</label>
             <select id="subject" name="subject" class="form-input form-select">
-              <option value="general">Ümumi sual</option>
+              <option value="technical">Texniki sual</option>
               <option value="collaboration">Əməkdaşlıq</option>
-              <option value="rust">Rust haqqında</option>
-              <option value="gamedev">Oyun inkişafı</option>
+              <option value="rust">Rust mövzusu</option>
               <option value="other">Digər</option>
             </select>
           </div>
           
           <div class="form-group">
             <label for="message" class="form-label">Mesaj</label>
-            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Mesajınız..." rows="4" required></textarea>
+            <textarea id="message" name="message" class="form-input form-textarea" placeholder="Qısa təsvir..." rows="4" required></textarea>
           </div>
           
           <button type="submit" class="form-submit">
-            <span>Göndər</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-            </svg>
+            Göndər
           </button>
           
           <p class="form-note">
-            * Form hazırda demo rejimdədir. Birbaşa e-poçt vasitəsilə əlaqə saxlaya bilərsiniz.
+            Form mailto protokolu vasitəsilə e-poçt müştərinizdə açılır.
           </p>
         </form>
       </div>
@@ -140,16 +135,12 @@ const contactMethods = [
   
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    
     const formData = new FormData(form as HTMLFormElement);
     const name = formData.get('name');
     const email = formData.get('email');
     const subject = formData.get('subject');
     const message = formData.get('message');
-    
-    // Create mailto link
     const mailtoLink = `mailto:csunelll@proton.me?subject=${encodeURIComponent(`[Portfolio] ${subject}: ${name}`)}&body=${encodeURIComponent(`Göndərən: ${name}\nE-poçt: ${email}\n\n${message}`)}`;
-    
     window.location.href = mailtoLink;
   });
 </script>
@@ -173,7 +164,7 @@ const contactMethods = [
   .contact-grid {
     display: grid;
     gap: var(--space-4xl);
-    align-items: center;
+    align-items: start;
   }
 
   @media (min-width: 1024px) {
@@ -189,21 +180,15 @@ const contactMethods = [
   }
 
   .contact-heading {
-    font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.2;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     color: var(--color-white);
-  }
-
-  .heading-highlight {
-    color: var(--color-gray-400);
-    font-style: italic;
+    line-height: 1.4;
   }
 
   .contact-description {
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--color-gray-400);
-    line-height: 1.8;
-    max-width: 500px;
+    line-height: 1.7;
   }
 
   .contact-methods {
@@ -222,12 +207,6 @@ const contactMethods = [
     background: var(--color-gray-900);
     border: 1px solid var(--color-gray-800);
     border-radius: var(--radius-md);
-    transition: all var(--transition-fast);
-  }
-
-  .contact-method:hover {
-    border-color: var(--color-gray-700);
-    transform: translateX(8px);
   }
 
   .method-icon {
@@ -239,7 +218,6 @@ const contactMethods = [
     background: var(--color-gray-800);
     border-radius: var(--radius-sm);
     color: var(--color-gray-400);
-    flex-shrink: 0;
   }
 
   .method-icon svg {
@@ -256,117 +234,20 @@ const contactMethods = [
   .method-label {
     font-size: 0.75rem;
     color: var(--color-gray-600);
-    text-transform: uppercase;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .method-value {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--color-gray-300);
-    transition: color var(--transition-fast);
   }
 
   a.method-value:hover {
     color: var(--color-white);
   }
 
-  .contact-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .visual-wrapper {
-    width: 300px;
-    height: 300px;
-    position: relative;
-  }
-
-  @media (min-width: 1024px) {
-    .visual-wrapper {
-      width: 400px;
-      height: 400px;
-    }
-  }
-
-  .orbit-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
-  .orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid var(--color-gray-800);
-    border-radius: 50%;
-  }
-
-  .orbit-1 {
-    width: 100%;
-    height: 100%;
-    animation: rotate 20s linear infinite;
-  }
-
-  .orbit-2 {
-    width: 70%;
-    height: 70%;
-    animation: rotate 15s linear infinite reverse;
-  }
-
-  .orbit-3 {
-    width: 40%;
-    height: 40%;
-    animation: rotate 10s linear infinite;
-  }
-
-  @keyframes rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-
-  .orbit-dot {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8px;
-    height: 8px;
-    background: var(--color-gray-600);
-    border-radius: 50%;
-  }
-
-  .orbit-1 .orbit-dot {
-    width: 12px;
-    height: 12px;
-    background: var(--color-gray-500);
-  }
-
-  .center-element {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
-    background: var(--color-gray-900);
-    border: 1px solid var(--color-gray-700);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .center-icon {
-    font-size: 1.5rem;
-    color: var(--color-gray-400);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  /* Contact Form */
   .contact-form-wrapper {
     display: flex;
     align-items: center;
@@ -375,7 +256,7 @@ const contactMethods = [
 
   .contact-form {
     width: 100%;
-    max-width: 450px;
+    max-width: 460px;
     background: var(--color-gray-900);
     border: 1px solid var(--color-gray-800);
     border-radius: var(--radius-lg);
@@ -383,7 +264,7 @@ const contactMethods = [
   }
 
   .form-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--color-white);
     margin-bottom: var(--space-xl);
     padding-bottom: var(--space-lg);
@@ -410,13 +291,8 @@ const contactMethods = [
     border: 1px solid var(--color-gray-800);
     border-radius: var(--radius-md);
     font-family: var(--font-display);
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--color-white);
-    transition: all var(--transition-fast);
-  }
-
-  .form-input::placeholder {
-    color: var(--color-gray-600);
   }
 
   .form-input:focus {
@@ -426,16 +302,11 @@ const contactMethods = [
   }
 
   .form-select {
-    cursor: pointer;
     appearance: none;
+    cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right var(--space-md) center;
-  }
-
-  .form-select option {
-    background: var(--color-gray-900);
-    color: var(--color-white);
   }
 
   .form-textarea {
@@ -445,37 +316,25 @@ const contactMethods = [
 
   .form-submit {
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-xl);
-    background: var(--color-white);
-    color: var(--color-black);
-    border: none;
-    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    border: 1px solid var(--color-white);
+    background: transparent;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     font-family: var(--font-mono);
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
     transition: all var(--transition-fast);
   }
 
   .form-submit:hover {
-    background: var(--color-gray-200);
-    transform: translateY(-2px);
-  }
-
-  .form-submit svg {
-    width: 16px;
-    height: 16px;
+    background: var(--color-white);
+    color: var(--color-black);
   }
 
   .form-note {
     font-size: 0.75rem;
     color: var(--color-gray-600);
+    margin-top: var(--space-md);
     text-align: center;
-    margin-top: var(--space-lg);
-    font-style: italic;
   }
 </style>
