@@ -1,23 +1,29 @@
 ---
 const skillCategories = [
   {
-    title: "Proqramlaşdırma Dilləri",
-    icon: "code",
+    title: "Rust Ekosistemi",
+    icon: "rust",
+    highlight: true,
     skills: [
       {
-        name: "C++",
-        level: 85,
-        description: "Oyun inkişafı, performans-kritik sistemlər, Unreal Engine"
-      },
-      {
-        name: "Rust",
-        level: 70,
-        description: "Sistem proqramlaşdırması, memory-safe kod yazımı, Web development"
-      },
-      {
-        name: "C#",
+        name: "Rust Language",
         level: 75,
-        description: "ASP.NET, web services, backend development"
+        description: "Ownership, Borrowing, Lifetimes, Pattern Matching, Error Handling"
+      },
+      {
+        name: "Bevy Engine",
+        level: 70,
+        description: "ECS arxitekturası, 2D/3D oyun inkişafı, Plugin sistemi"
+      },
+      {
+        name: "Tokio & Async",
+        level: 60,
+        description: "Asinxron proqramlaşdırma, concurrent sistemlər"
+      },
+      {
+        name: "Cargo & Tooling",
+        level: 80,
+        description: "Package management, testing, benchmarking, clippy"
       }
     ]
   },
@@ -36,23 +42,35 @@ const skillCategories = [
         description: "Vizual scripting, prototipləmə, oyun mexanikası"
       },
       {
-        name: "Bevy Engine",
-        level: 65,
-        description: "Rust oyun mühərriki, ECS arxitekturası, 2D/3D oyun inkişafı"
+        name: "C++",
+        level: 80,
+        description: "Oyun inkişafı, performans-kritik sistemlər"
       }
     ]
   },
   {
-    title: "Web Development",
+    title: "Digər Texnologiyalar",
     icon: "web",
     skills: [
       {
-        name: "ASP.NET",
+        name: "C#",
         level: 70,
-        description: "Web API, MVC, backend xidmətləri"
+        description: "ASP.NET, web services, backend development"
+      },
+      {
+        name: "Git & GitHub",
+        level: 75,
+        description: "Version control, branching, collaboration"
       }
     ]
   }
+];
+
+const rustFeatures = [
+  { icon: "🔒", title: "Memory Safety", desc: "Compile-time memory safety without GC" },
+  { icon: "⚡", title: "Zero-Cost", desc: "Abstractions with no runtime overhead" },
+  { icon: "🧵", title: "Fearless Concurrency", desc: "Safe parallel programming" },
+  { icon: "📦", title: "Cargo", desc: "Powerful package manager & build tool" }
 ];
 ---
 
@@ -66,19 +84,47 @@ const skillCategories = [
     <div class="skills-intro">
       <p>
         Müxtəlif texnologiyalarla işləyirəm - oyun inkişafından sistem 
-        proqramlaşdırmasına, web development-dən vizual scripting-ə qədər. 
-        Hər bir texnologiya öz güclü tərəfləri ilə layihələrimə dəyər qatır.
+        proqramlaşdırmasına qədər. Rust mənim əsas fokuslarımdan biridir,
+        onun memory safety və performance xüsusiyyətləri məni cəlb edir.
       </p>
+    </div>
+    
+    <!-- Rust Features Showcase -->
+    <div class="rust-showcase">
+      <div class="rust-showcase-header">
+        <div class="rust-logo">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.835 11.703l-1.008-.623-.028-.292c-.079-.702-.21-1.389-.389-2.053l.059-.336.879-.813a.417.417 0 00-.014-.59l-.956-.923a.417.417 0 00-.586-.013l-.762.708-.297-.146a10.327 10.327 0 00-1.818-.863l-.267-.19.132-.963a.417.417 0 00-.363-.467l-1.314-.164a.417.417 0 00-.467.363l-.116.854-.312-.036a10.478 10.478 0 00-2.038-.028l-.312.028-.116-.854a.417.417 0 00-.467-.363l-1.314.164a.417.417 0 00-.363.467l.132.963-.267.19a10.327 10.327 0 00-1.818.863l-.297.146-.762-.708a.417.417 0 00-.586.013l-.956.923a.417.417 0 00-.014.59l.879.813.059.336a10.397 10.397 0 00-.389 2.053l-.028.292-1.008.623a.417.417 0 00-.196.542l.503 1.22a.417.417 0 00.526.228l1.002-.396.198.256c.422.549.9 1.053 1.426 1.504l.213.183-.419.897a.417.417 0 00.168.534l1.145.695a.417.417 0 00.542-.13l.61-.812.285.106c.602.222 1.232.388 1.881.493l.301.049-.028.996a.417.417 0 00.364.43l1.303.148a.417.417 0 00.453-.366l.11-.98.304-.018c.663-.041 1.31-.138 1.936-.288l.294-.07.559.845a.417.417 0 00.535.149l1.168-.647a.417.417 0 00.188-.527l-.358-.917.218-.179c.538-.44 1.03-.934 1.466-1.474l.202-.251 1.002.396a.417.417 0 00.526-.228l.503-1.22a.417.417 0 00-.196-.542z"/>
+            <circle cx="12" cy="12" r="4.5" fill="var(--color-gray-900)"/>
+          </svg>
+        </div>
+        <div class="rust-showcase-title">
+          <h3>Niyə Rust?</h3>
+          <p>Gələcəyin sistem proqramlaşdırma dili</p>
+        </div>
+      </div>
+      <div class="rust-features-grid">
+        {rustFeatures.map((feature) => (
+          <div class="rust-feature">
+            <span class="rust-feature-icon">{feature.icon}</span>
+            <div class="rust-feature-content">
+              <h4>{feature.title}</h4>
+              <p>{feature.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
     
     <div class="skills-grid">
       {skillCategories.map((category, catIndex) => (
-        <div class="skill-category" style={`animation-delay: ${catIndex * 0.2}s`}>
+        <div class={`skill-category ${category.highlight ? 'highlight' : ''}`} style={`animation-delay: ${catIndex * 0.2}s`}>
           <div class="category-header">
             <div class="category-icon">
-              {category.icon === "code" && (
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M8 6L3 12l5 6M16 6l5 6-5 6M14 4l-4 16"/>
+              {category.icon === "rust" && (
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.835 11.703l-1.008-.623-.028-.292c-.079-.702-.21-1.389-.389-2.053l.059-.336.879-.813a.417.417 0 00-.014-.59l-.956-.923a.417.417 0 00-.586-.013l-.762.708-.297-.146a10.327 10.327 0 00-1.818-.863l-.267-.19.132-.963a.417.417 0 00-.363-.467l-1.314-.164a.417.417 0 00-.467.363l-.116.854-.312-.036a10.478 10.478 0 00-2.038-.028l-.312.028-.116-.854a.417.417 0 00-.467-.363l-1.314.164a.417.417 0 00-.363.467l.132.963-.267.19a10.327 10.327 0 00-1.818.863l-.297.146-.762-.708a.417.417 0 00-.586.013l-.956.923a.417.417 0 00-.014.59l.879.813.059.336a10.397 10.397 0 00-.389 2.053l-.028.292-1.008.623a.417.417 0 00-.196.542l.503 1.22a.417.417 0 00.526.228l1.002-.396.198.256c.422.549.9 1.053 1.426 1.504l.213.183-.419.897a.417.417 0 00.168.534l1.145.695a.417.417 0 00.542-.13l.61-.812.285.106c.602.222 1.232.388 1.881.493l.301.049-.028.996a.417.417 0 00.364.43l1.303.148a.417.417 0 00.453-.366l.11-.98.304-.018c.663-.041 1.31-.138 1.936-.288l.294-.07.559.845a.417.417 0 00.535.149l1.168-.647a.417.417 0 00.188-.527l-.358-.917.218-.179c.538-.44 1.03-.934 1.466-1.474l.202-.251 1.002.396a.417.417 0 00.526-.228l.503-1.22a.417.417 0 00-.196-.542z"/>
+                  <circle cx="12" cy="12" r="4.5" fill="var(--color-gray-900)"/>
                 </svg>
               )}
               {category.icon === "game" && (
@@ -118,13 +164,13 @@ const skillCategories = [
     <div class="skills-extra">
       <h3 class="extra-title">Əlavə Bacarıqlar</h3>
       <div class="extra-tags">
-        <span class="extra-tag">Git</span>
-        <span class="extra-tag">GitHub</span>
         <span class="extra-tag">Visual Studio</span>
         <span class="extra-tag">VS Code</span>
+        <span class="extra-tag">Neovim</span>
+        <span class="extra-tag">Linux</span>
         <span class="extra-tag">Problem Həlli</span>
         <span class="extra-tag">Öyrənmə</span>
-        <span class="extra-tag">Komanda İşi</span>
+        <span class="extra-tag">Debugging</span>
         <span class="extra-tag">Optimizasiya</span>
       </div>
     </div>
@@ -311,5 +357,103 @@ const skillCategories = [
     border-color: var(--color-gray-600);
     color: var(--color-white);
     transform: translateY(-2px);
+  }
+
+  /* Rust Showcase */
+  .rust-showcase {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .rust-showcase-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+
+  .rust-logo {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+  }
+
+  .rust-logo svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .rust-showcase-title h3 {
+    font-size: 1.25rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .rust-showcase-title p {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+  }
+
+  .rust-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 640px) {
+    .rust-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .rust-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-black-lighter);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .rust-feature:hover {
+    background: var(--color-gray-800);
+    transform: translateX(4px);
+  }
+
+  .rust-feature-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .rust-feature-content h4 {
+    font-size: 0.875rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .rust-feature-content p {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    line-height: 1.4;
+  }
+
+  /* Highlighted Category */
+  .skill-category.highlight {
+    border-color: var(--color-gray-700);
+    background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-black-lighter) 100%);
+  }
+
+  .skill-category.highlight .category-icon {
+    background: var(--color-gray-700);
+    color: var(--color-white);
   }
 </style>

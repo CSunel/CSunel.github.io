@@ -4,6 +4,12 @@ const stats = [
   { value: "∞", label: "Öyrənmə Həvəsi" },
   { value: "AZ", label: "Ölkə" }
 ];
+
+const journey = [
+  { year: "Erkən", title: "İlk Addımlar", desc: "Kompüterlərlə tanışlıq və texnologiyaya maraq" },
+  { year: "Sonra", title: "Proqramlaşdırma", desc: "İlk kodlar və oyun inkişafına başlanğıc" },
+  { year: "İndi", title: "İnkişaf", desc: "Rust, C++, Unreal Engine ilə aktiv öyrənmə" }
+];
 ---
 
 <section id="haqqimda" class="section about">
@@ -17,28 +23,50 @@ const stats = [
       <div class="about-content">
         <div class="about-text">
           <p class="about-lead">
-            Mən Rzalı Tərlan, Azərbaycanlı proqramçı və oyun developeriyəm.
+            Mən Rzalı Tərlan, Azərbaycanlı gənc proqramçı və oyun developeriyəm.
           </p>
           
           <p>
-            Texnologiyaya olan marağım erkən yaşlardan başlayıb. Kompüterlər, 
+            Texnologiyaya olan marağım uşaqlıqdan başlayıb. Kompüterlər, 
             proqramlaşdırma və xüsusilə oyun inkişafı həmişə diqqətimi çəkib. 
-            Bu sahədə peşəkar olmaq məqsədilə müxtəlif texnologiyaları 
-            dərindən öyrənirəm.
+            Gənc yaşımda bu sahəyə başlamaq mənə böyük üstünlük verir - 
+            öyrənmək üçün çoxlu vaxtım və sonsuz həvəsim var.
           </p>
           
           <p>
-            C++ və Unreal Engine ilə oyun inkişafı, Rust ilə sistem 
-            proqramlaşdırması, ASP.NET ilə web development - bunların hər biri
-            mənim bacarıq dəstimin bir hissəsidir. Blueprint vasitəsilə vizual 
-            scripting də iş axınımın vacib komponentidir.
+            C++ və Unreal Engine ilə oyun inkişafı əsas fokuslarımdan biridir. 
+            Rust isə mənim üçün xüsusi əhəmiyyət daşıyır - memory safety, 
+            zero-cost abstractions və fearless concurrency kimi konseptlər 
+            məni bu dilə cəlb etdi. Rust ilə sistem proqramlaşdırması, 
+            performans-kritik alətlər və hətta Bevy Engine ilə oyun 
+            inkişafı üzərində çalışıram.
           </p>
           
           <p>
-            Hər zaman yeni şeylər öyrənməyə, mürəkkəb problemləri həll etməyə 
-            və keyfiyyətli kod yazmağa çalışıram. İnkişaf etmək və öyrənmək 
-            mənim üçün davamlı bir prosesdir.
+            Hələ yolun əvvəlindəyəm, amma hər gün yeni şeylər öyrənir, 
+            mürəkkəb problemləri həll etməyə çalışır və keyfiyyətli 
+            kod yazmaq vərdişi qazanıram. Gələcəkdə böyük layihələr 
+            üzərində işləməyi planlaşdırıram.
           </p>
+        </div>
+        
+        <div class="about-journey">
+          <h4 class="journey-title">Yolculuğum</h4>
+          <div class="journey-timeline">
+            {journey.map((item, index) => (
+              <div class="journey-item">
+                <div class="journey-marker">
+                  <span class="journey-year">{item.year}</span>
+                  <div class="journey-dot"></div>
+                  {index < journey.length - 1 && <div class="journey-line"></div>}
+                </div>
+                <div class="journey-content">
+                  <h5>{item.title}</h5>
+                  <p>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
         
         <div class="about-stats">
@@ -64,13 +92,24 @@ const stats = [
                 <span class="code-dot"></span>
                 <span class="code-dot"></span>
                 <span class="code-dot"></span>
-                <span class="code-title">developer.az</span>
+                <span class="code-title">developer.rs</span>
               </div>
               <div class="code-body">
-                <pre><code><span class="code-keyword">struct</span> <span class="code-type">Developer</span> {"{"}<br/>    <span class="code-prop">ad</span>: <span class="code-string">"Tərlan"</span>,<br/>    <span class="code-prop">soyad</span>: <span class="code-string">"Rzalı"</span>,<br/>    <span class="code-prop">ölkə</span>: <span class="code-string">"Azərbaycan"</span>,<br/>    <span class="code-prop">fokus</span>: <span class="code-string">"Game Dev"</span>,<br/>    <span class="code-prop">öyrənir</span>: <span class="code-bool">true</span>,<br/>{"}"}</code></pre>
+                <pre><code><span class="code-keyword">use</span> <span class="code-type">passion</span>::<span class="code-type">Learning</span>;<br/><br/><span class="code-keyword">struct</span> <span class="code-type">Developer</span> {"{"}<br/>    <span class="code-prop">ad</span>: <span class="code-string">"Tərlan"</span>,<br/>    <span class="code-prop">soyad</span>: <span class="code-string">"Rzalı"</span>,<br/>    <span class="code-prop">ölkə</span>: <span class="code-string">"Azərbaycan 🇦🇿"</span>,<br/>    <span class="code-prop">fokus</span>: <span class="code-type">Vec</span>::<span class="code-func">from</span>([<br/>        <span class="code-string">"Game Dev"</span>,<br/>        <span class="code-string">"Systems Programming"</span>,<br/>    ]),<br/>    <span class="code-prop">öyrənir</span>: <span class="code-bool">true</span>, <span class="code-comment">// həmişə!</span><br/>{"}"}</code></pre>
               </div>
             </div>
           </div>
+        </div>
+        
+        <div class="rust-highlight">
+          <div class="rust-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.835 11.703l-1.008-.623-.028-.292c-.079-.702-.21-1.389-.389-2.053l.059-.336.879-.813a.417.417 0 00-.014-.59l-.956-.923a.417.417 0 00-.586-.013l-.762.708-.297-.146a10.327 10.327 0 00-1.818-.863l-.267-.19.132-.963a.417.417 0 00-.363-.467l-1.314-.164a.417.417 0 00-.467.363l-.116.854-.312-.036a10.478 10.478 0 00-2.038-.028l-.312.028-.116-.854a.417.417 0 00-.467-.363l-1.314.164a.417.417 0 00-.363.467l.132.963-.267.19a10.327 10.327 0 00-1.818.863l-.297.146-.762-.708a.417.417 0 00-.586.013l-.956.923a.417.417 0 00-.014.59l.879.813.059.336a10.397 10.397 0 00-.389 2.053l-.028.292-1.008.623a.417.417 0 00-.196.542l.503 1.22a.417.417 0 00.526.228l1.002-.396.198.256c.422.549.9 1.053 1.426 1.504l.213.183-.419.897a.417.417 0 00.168.534l1.145.695a.417.417 0 00.542-.13l.61-.812.285.106c.602.222 1.232.388 1.881.493l.301.049-.028.996a.417.417 0 00.364.43l1.303.148a.417.417 0 00.453-.366l.11-.98.304-.018c.663-.041 1.31-.138 1.936-.288l.294-.07.559.845a.417.417 0 00.535.149l1.168-.647a.417.417 0 00.188-.527l-.358-.917.218-.179c.538-.44 1.03-.934 1.466-1.474l.202-.251 1.002.396a.417.417 0 00.526-.228l.503-1.22a.417.417 0 00-.196-.542z"/>
+              <circle cx="12" cy="12" r="4.5"/>
+            </svg>
+            <span>Rust Enthusiast</span>
+          </div>
+          <p class="rust-desc">Memory safety & Performance</p>
         </div>
       </div>
     </div>
@@ -245,4 +284,113 @@ const stats = [
   .code-prop { color: var(--color-gray-300); }
   .code-string { color: var(--color-gray-500); }
   .code-bool { color: var(--color-gray-400); }
+  .code-func { color: var(--color-gray-300); }
+  .code-comment { color: var(--color-gray-600); font-style: italic; }
+
+  /* Journey Timeline */
+  .about-journey {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--color-gray-800);
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+
+  .journey-title {
+    font-size: 0.875rem;
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-lg);
+    font-weight: 500;
+  }
+
+  .journey-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .journey-item {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .journey-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+  }
+
+  .journey-year {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-xs);
+  }
+
+  .journey-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--color-gray-700);
+    border: 2px solid var(--color-gray-600);
+    border-radius: 50%;
+  }
+
+  .journey-line {
+    width: 1px;
+    flex: 1;
+    background: var(--color-gray-800);
+    margin-top: var(--space-xs);
+  }
+
+  .journey-content h5 {
+    font-size: 0.875rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .journey-content p {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    line-height: 1.5;
+  }
+
+  /* Rust Highlight */
+  .rust-highlight {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rust-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-gray-300);
+  }
+
+  .rust-badge svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-gray-500);
+  }
+
+  .rust-badge span {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .rust-desc {
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    padding-left: 32px;
+  }
 </style>

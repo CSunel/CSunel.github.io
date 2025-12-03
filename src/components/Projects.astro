@@ -1,32 +1,36 @@
 ---
-const projects = [
+const upcomingProjects = [
   {
     id: "01",
-    title: "Oyun Prototipi",
-    category: "Unreal Engine / C++",
-    description: "Unreal Engine 5 ilə inkişaf etdirilən 3D oyun prototipi. Blueprint və C++ kombinasiyası ilə gameplay mexanikası.",
-    tags: ["Unreal Engine", "C++", "Blueprint"],
-    status: "İnkişafda",
-    year: "2024"
+    title: "Rust CLI Tool",
+    category: "Rust / Systems",
+    description: "Rust ilə inkişaf etdiriləcək command-line aləti. Memory-safe, sürətli və etibarlı.",
+    tags: ["Rust", "CLI", "Tokio"],
+    focus: "Sistem proqramlaşdırması öyrənmək"
   },
   {
     id: "02",
-    title: "Sistem Aləti",
-    category: "Rust",
-    description: "Rust ilə yazılmış yüksək performanslı sistem aləti. Memory-safe və thread-safe dizayn.",
-    tags: ["Rust", "CLI", "Performance"],
-    status: "Planlaşdırılır",
-    year: "2024"
+    title: "Bevy Oyun",
+    category: "Rust / Bevy Engine",
+    description: "Bevy Engine ilə 2D oyun layihəsi. ECS arxitekturası və Rust performansı.",
+    tags: ["Bevy", "Rust", "ECS", "2D"],
+    focus: "Rust ilə oyun inkişafı"
   },
   {
     id: "03",
-    title: "Web API",
-    category: "ASP.NET",
-    description: "ASP.NET Core ilə RESTful API. Modern arxitektura və best practices.",
-    tags: ["ASP.NET", "C#", "REST API"],
-    status: "Planlaşdırılır",
-    year: "2024"
+    title: "Unreal Prototipi",
+    category: "Unreal Engine / C++",
+    description: "Unreal Engine 5 ilə 3D oyun prototipi. Blueprint və C++ kombinasiyası.",
+    tags: ["Unreal", "C++", "Blueprint"],
+    focus: "AAA oyun inkişafı təcrübəsi"
   }
+];
+
+const learningGoals = [
+  { icon: "🦀", text: "Rust ecosystem-i dərindən öyrənmək" },
+  { icon: "🎮", text: "Bevy ilə tam oyun yaratmaq" },
+  { icon: "⚡", text: "Performans optimizasiyası" },
+  { icon: "🌐", text: "Open source layihələrə töhfə vermək" }
 ];
 ---
 
@@ -39,21 +43,38 @@ const projects = [
     
     <div class="projects-intro">
       <p>
-        Hazırda böyük bir layihəm yoxdur, lakin müxtəlif texnologiyalarla 
-        kiçik layihələr və prototiplər üzərində işləyirəm. Hər layihə öyrənmə 
-        və inkişaf etmək üçün bir fürsətdir.
+        Hazırda böyük layihələrim yoxdur - hələ öyrənmə mərhələsindəyəm. 
+        Aşağıda planladığım və tezliklə başlayacağım layihələri görə bilərsiniz.
+        Hər layihə yeni bir şey öyrənmək üçün fürsətdir.
       </p>
     </div>
+
+    <!-- Learning Goals -->
+    <div class="learning-section">
+      <h3 class="learning-title">
+        <span class="learning-icon">🎯</span>
+        Öyrənmə Hədəflərim
+      </h3>
+      <div class="learning-goals">
+        {learningGoals.map((goal) => (
+          <div class="learning-goal">
+            <span class="goal-icon">{goal.icon}</span>
+            <span class="goal-text">{goal.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <h3 class="upcoming-title">Planladığım Layihələr</h3>
     
     <div class="projects-list">
-      {projects.map((project, index) => (
-        <article class="project-card" style={`animation-delay: ${index * 0.15}s`}>
+      {upcomingProjects.map((project, index) => (
+        <article class="project-card upcoming" style={`animation-delay: ${index * 0.15}s`}>
           <div class="project-header">
             <span class="project-number">{project.id}</span>
             <div class="project-meta">
-              <span class="project-year">{project.year}</span>
-              <span class="project-status" data-status={project.status === "İnkişafda" ? "active" : "planned"}>
-                {project.status}
+              <span class="project-status" data-status="upcoming">
+                Tezliklə
               </span>
             </div>
           </div>
@@ -62,6 +83,9 @@ const projects = [
             <span class="project-category">{project.category}</span>
             <h3 class="project-title">{project.title}</h3>
             <p class="project-description">{project.description}</p>
+            <p class="project-focus">
+              <span class="focus-label">Fokus:</span> {project.focus}
+            </p>
           </div>
           
           <div class="project-footer">
@@ -70,14 +94,11 @@ const projects = [
                 <span class="project-tag">{tag}</span>
               ))}
             </div>
-            <div class="project-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M7 17L17 7M17 7H7M17 7v10"/>
-              </svg>
-            </div>
           </div>
           
-          <div class="project-glow"></div>
+          <div class="project-overlay">
+            <span class="overlay-text">Coming Soon</span>
+          </div>
         </article>
       ))}
     </div>
@@ -86,14 +107,19 @@ const projects = [
       <div class="cta-content">
         <div class="cta-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 6v6l4 2"/>
-            <circle cx="12" cy="12" r="10"/>
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
           </svg>
         </div>
         <div class="cta-text">
-          <h3>Tezliklə Daha Çox</h3>
-          <p>Yeni layihələr üzərində işləyirəm. GitHub profilimi izləyin.</p>
+          <h3>GitHub Profilim</h3>
+          <p>Yeni layihələr başladıqda GitHub-da paylaşacam. İzləyin!</p>
         </div>
+        <a href="https://github.com/CSunel/C" target="_blank" rel="noopener" class="cta-link">
+          <span>GitHub-a keç</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7v10"/>
+          </svg>
+        </a>
       </div>
     </div>
   </div>
@@ -335,5 +361,161 @@ const projects = [
   .cta-text p {
     font-size: 0.875rem;
     color: var(--color-gray-600);
+  }
+
+  /* Learning Section */
+  .learning-section {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .learning-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 1rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+  }
+
+  .learning-icon {
+    font-size: 1.25rem;
+  }
+
+  .learning-goals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 640px) {
+    .learning-goals {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .learning-goal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-black-lighter);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .learning-goal:hover {
+    background: var(--color-gray-800);
+    transform: translateX(4px);
+  }
+
+  .goal-icon {
+    font-size: 1.25rem;
+  }
+
+  .goal-text {
+    font-size: 0.875rem;
+    color: var(--color-gray-300);
+  }
+
+  .upcoming-title {
+    font-size: 1rem;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-xl);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Upcoming Project Card */
+  .project-card.upcoming {
+    position: relative;
+    cursor: default;
+  }
+
+  .project-card.upcoming:hover {
+    transform: translateY(-4px);
+  }
+
+  .project-focus {
+    font-size: 0.75rem;
+    color: var(--color-gray-500);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px dashed var(--color-gray-800);
+  }
+
+  .focus-label {
+    color: var(--color-gray-600);
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-gray-800);
+    border: 1px dashed var(--color-gray-600);
+    border-radius: var(--radius-sm);
+  }
+
+  .overlay-text {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--color-gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .project-status[data-status="upcoming"] {
+    background: rgba(80, 80, 80, 0.2);
+    color: var(--color-gray-400);
+    border: 1px dashed var(--color-gray-700);
+  }
+
+  /* CTA Link */
+  .cta-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-gray-800);
+    border: 1px solid var(--color-gray-700);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-gray-300);
+    transition: all var(--transition-fast);
+    margin-left: auto;
+  }
+
+  .cta-link:hover {
+    background: var(--color-gray-700);
+    color: var(--color-white);
+  }
+
+  .cta-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform var(--transition-fast);
+  }
+
+  .cta-link:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
+    .cta-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cta-link {
+      margin-left: 0;
+      justify-content: center;
+    }
   }
 </style>

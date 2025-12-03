@@ -6,7 +6,7 @@ interface Props {
 
 const { 
   title = "Rzalı Tərlan | Proqramçı & Oyun Developer",
-  description = "Azərbaycanlı proqramçı Rzalı Tərlan - C++, Unreal Engine, Blueprint, Rust və ASP.NET mütəxəssisi"
+  description = "Azərbaycanlı gənc proqramçı Rzalı Tərlan - Rust, C++, Unreal Engine, Blueprint və Bevy Engine"
 } = Astro.props;
 ---
 
@@ -17,21 +17,115 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="author" content="Rzalı Tərlan" />
-    <meta name="keywords" content="Rzalı Tərlan, proqramçı, developer, Azərbaycan, C++, Unreal Engine, Blueprint, Rust, ASP.NET" />
+    <meta name="keywords" content="Rzalı Tərlan, proqramçı, developer, Azərbaycan, Rust, C++, Unreal Engine, Blueprint, Bevy Engine, game developer" />
     
+    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="az_AZ" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
   </head>
   <body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+      <div class="loader-content">
+        <div class="loader-logo">TR</div>
+        <div class="loader-bar">
+          <div class="loader-progress"></div>
+        </div>
+        <div class="loader-text">Yüklənir...</div>
+      </div>
+    </div>
+    
     <div class="noise-overlay"></div>
     <slot />
   </body>
 </html>
 
+<script>
+  // Hide loader when page is loaded
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+      loader?.classList.add('loaded');
+      setTimeout(() => {
+        if (loader) loader.style.display = 'none';
+      }, 500);
+    }, 800);
+  });
+</script>
+
 <style is:global>
   @import '../styles/global.css';
+  
+  /* Loader Styles */
+  .loader {
+    position: fixed;
+    inset: 0;
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  
+  .loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+  
+  .loader-logo {
+    font-family: var(--font-mono);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  
+  .loader-bar {
+    width: 200px;
+    height: 2px;
+    background: var(--color-gray-800);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  .loader-progress {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-gray-600), var(--color-white));
+    border-radius: 2px;
+    animation: loadProgress 0.8s ease forwards;
+  }
+  
+  @keyframes loadProgress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  
+  .loader-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
 </style>

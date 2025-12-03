@@ -3,18 +3,20 @@ const navItems = [
   { href: "#haqqimda", label: "Haqqımda" },
   { href: "#bacariqlar", label: "Bacarıqlar" },
   { href: "#layiheler", label: "Layihələr" },
+  { href: "#blog", label: "Blog" },
   { href: "#elaqe", label: "Əlaqə" }
 ];
 ---
 
 <header class="header">
+  <div class="scroll-progress" id="scrollProgress"></div>
   <nav class="nav container">
     <a href="/" class="logo">
       <span class="logo-text">TR</span>
       <span class="logo-dot"></span>
     </a>
     
-    <ul class="nav-list">
+    <ul class="nav-list" id="navList">
       {navItems.map((item, index) => (
         <li class="nav-item" style={`animation-delay: ${index * 0.1}s`}>
           <a href={item.href} class="nav-link">
@@ -25,13 +27,80 @@ const navItems = [
       ))}
     </ul>
 
-    <button class="menu-toggle" aria-label="Menyu">
+    <button class="menu-toggle" id="menuToggle" aria-label="Menyu" aria-expanded="false">
       <span class="menu-line"></span>
       <span class="menu-line"></span>
       <span class="menu-line"></span>
     </button>
   </nav>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-content">
+      <ul class="mobile-nav-list">
+        {navItems.map((item, index) => (
+          <li class="mobile-nav-item" style={`--delay: ${index * 0.1}s`}>
+            <a href={item.href} class="mobile-nav-link">
+              <span class="mobile-nav-number">0{index + 1}</span>
+              <span class="mobile-nav-label">{item.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="mobile-menu-footer">
+        <div class="mobile-social">
+          <a href="https://github.com/CSunel/C" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </a>
+          <a href="mailto:csunelll@proton.me" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M22 6L12 13 2 6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const body = document.body;
+
+  function toggleMenu() {
+    const isOpen = mobileMenu?.classList.toggle('active');
+    menuToggle?.classList.toggle('active');
+    menuToggle?.setAttribute('aria-expanded', String(isOpen));
+    body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.remove('active');
+      menuToggle?.classList.remove('active');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      body.style.overflow = '';
+    });
+  });
+
+  // Scroll Progress
+  window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scrollProgress');
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    if (scrollProgress) {
+      scrollProgress.style.width = `${scrollPercent}%`;
+    }
+  });
+</script>
 
 <style>
   .header {
@@ -177,5 +246,148 @@ const navItems = [
 
   .menu-toggle:hover .menu-line:nth-child(3) {
     transform: translateX(-4px);
+  }
+
+  /* Scroll Progress Bar */
+  .scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-gray-600), var(--color-gray-400));
+    z-index: 1001;
+    transition: width 0.1s ease-out;
+  }
+
+  /* Menu Toggle Active State */
+  .menu-toggle.active .menu-line:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+
+  .menu-toggle.active .menu-line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .menu-toggle.active .menu-line:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-black);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-slow);
+  }
+
+  .mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    text-align: center;
+  }
+
+  .mobile-nav-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-base);
+    transition-delay: var(--delay);
+  }
+
+  .mobile-menu.active .mobile-nav-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+  }
+
+  .mobile-nav-number {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-gray-600);
+    letter-spacing: 0.15em;
+  }
+
+  .mobile-nav-label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-gray-300);
+    transition: color var(--transition-fast);
+  }
+
+  .mobile-nav-link:hover .mobile-nav-label {
+    color: var(--color-white);
+  }
+
+  .mobile-menu-footer {
+    position: absolute;
+    bottom: var(--space-3xl);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .mobile-social {
+    display: flex;
+    gap: var(--space-xl);
+  }
+
+  .mobile-social a {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    color: var(--color-gray-400);
+    transition: all var(--transition-fast);
+  }
+
+  .mobile-social a:hover {
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+  }
+
+  .mobile-social svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .mobile-menu {
+      display: none;
+    }
   }
 </style>
