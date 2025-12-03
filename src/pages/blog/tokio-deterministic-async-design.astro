@@ -39,28 +39,28 @@ const checklist = [
 use tokio_util::sync::CancellationToken;
 use tracing::{Instrument, info_span};
 
-pub async fn run_service(shutdown: CancellationToken) {
+pub async fn run_service(shutdown: CancellationToken) {"{"}
     let mut set = JoinSet::new();
 
-    loop {
-        select! {
-            _ = shutdown.cancelled() => {
+    loop {"{"}
+        select! {"{"}
+            _ = shutdown.cancelled() => {"{"}
                 set.abort_all();
-                while let Some(res) = set.join_next().await {
-                    if let Err(e) = res { tracing::warn!(?e, "task aborted"); }
-                }
+                while let Some(res) = set.join_next().await {"{"}
+                    if let Err(e) = res {"{"} tracing::warn!(?e, "task aborted"); {"}"}
+                {"}"}
                 break;
-            }
-            Some(request) = next_request() => {
+            {"}"}
+            Some(request) = next_request() => {"{"}
                 let child = shutdown.child_token();
-                set.spawn(async move {
+                set.spawn(async move {"{"}
                     let span = info_span!("request", id = ?request.id);
                     handle_request(request, child).instrument(span).await;
-                });
-            }
-        }
-    }
-}
+                {"}"});
+            {"}"}
+        {"}"}
+    {"}"}
+{"}"}
 </code></pre>
     </section>
 
