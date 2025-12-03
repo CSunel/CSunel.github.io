@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const article = {
+  title: "Tokio-da Deterministik Asinxron Axın",
+  description: "Structured concurrency, cancellation token-ləri və tracing span-ları ilə idarə olunan servis nüvəsi",
+  date: "Araşdırma qeydi",
+  tags: ["Tokio", "Async", "Tracing", "Back-pressure"]
+};
+
+const checklist = [
+  "Hər task `JoinHandle` ilə izlənməli və axının sonunda `abort`/`await` qərarı verilməlidir",
+  "Cancellation logic üçün `tokio-util` crate-dəki `CancellationToken` kifayət edir",
+  "Back-pressure mexanizmi `tokio::sync::mpsc` kanallarının `try_send` çağırışları ilə ölçülə bilər"
+];
+---
+
+<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
+  <article class="article">
+    <header class="article-header">
+      <p class="article-meta">{article.date}</p>
+      <h1>{article.title}</h1>
+      <p class="article-description">{article.description}</p>
+      <div class="article-tags">
+        {article.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <section class="article-section">
+      <h2>Structured Concurrency</h2>
+      <p>
+        Tokio-da child task-lar parent scope-dan kənarda yaşadıqda nəzarətsiz background işlər yaranır.
+        Aşağıdakı nümunə hər request üçün span açır və `CancellationToken` vasitəsilə bütün child task-ları
+        sinxron şəkildə dayandırır.
+      </p>
+      <pre><code class="language-rust">use tokio::{select, task::JoinSet};
+use tokio_util::sync::CancellationToken;
+use tracing::{Instrument, info_span};
+
+pub async fn run_service(shutdown: CancellationToken) {
+    let mut set = JoinSet::new();
+
+    loop {
+        select! {
+            _ = shutdown.cancelled() => {
+                set.abort_all();
+                while let Some(res) = set.join_next().await {
+                    if let Err(e) = res { tracing::warn!(?e, "task aborted"); }
+                }
+                break;
+            }
+            Some(request) = next_request() => {
+                let child = shutdown.child_token();
+                set.spawn(async move {
+                    let span = info_span!("request", id = ?request.id);
+                    handle_request(request, child).instrument(span).await;
+                });
+            }
+        }
+    }
+}
+</code></pre>
+    </section>
+
+    <section class="article-section">
+      <h2>Back-pressure və Telemetriya</h2>
+      <p>
+        Kanala mesaj göndərməzdən əvvəl `try_send` yoxlanışı edilirsə, sistem yüklənmə zamanı istehsalçıya dərhal
+        xəbərdarlıq edir. Eyni anda `tracing` səviyyəsində span-lara queue uzunluğu əlavə etmək, production debugging
+        mərhələsində xeyli vaxt qazanmağa imkan verir.
+      </p>
+    </section>
+
+    <section class="article-section">
+      <h2>Yoxlama siyahısı</h2>
+      <ul class="article-list">
+        {checklist.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-description {
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-500);
+  }
+
+  .article-section {
+    margin-bottom: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .article-section h2 {
+    font-size: 1.3rem;
+  }
+
+  pre {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-gray-200);
+  }
+
+  .article-list {
+    padding-left: var(--space-lg);
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-list li {
+    margin-bottom: var(--space-sm);
+  }
+</style>

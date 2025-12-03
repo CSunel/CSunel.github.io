@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const article = {
+  title: "Diaqnostika üçün CLI Platforması",
+  description: "`clap`, `miette`, `indicatif` və `tracing` ilə operator yönümlü alət dizaynı",
+  date: "Sahə qeydi",
+  tags: ["CLI", "DevEx", "Observability", "Rust"]
+};
+
+const principles = [
+  "Hər komanda alt-əmrlərə bölünməli, daxil olan arqumentlər `clap` validatorları ilə yoxlanmalıdır",
+  "İstifadəçiyə verilən səhv mesajları `miette::Report` vasitəsilə strukturlu təqdim olunmalıdır",
+  "Uzunmüddətli əməliyyatlarda `indicatif` progress bar-ları real vaxta yaxın məlumat göstərməlidir"
+];
+---
+
+<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
+  <article class="article">
+    <header class="article-header">
+      <p class="article-meta">{article.date}</p>
+      <h1>{article.title}</h1>
+      <p class="article-description">{article.description}</p>
+      <div class="article-tags">
+        {article.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <section class="article-section">
+      <h2>Strukturlaşdırılmış giriş</h2>
+      <p>
+        Aşağıdakı nümunə `clap` vasitəsilə alt-əmr seçimi edir və `miette` ilə səhv mesajlarını operator üçün oxunaqlı edir.
+        Hər alt-əmr `tracing` span-ına bükülür ki, eyni CLI həm interaktiv, həm də avtomatlaşdırılmış skriptlərdə izlənə bilsin.
+      </p>
+      <pre><code class="language-rust">use clap::{Parser, Subcommand};
+use miette::{Context, Result};
+use tracing::{info, info_span};
+
+#[derive(Parser)]
+#[command(author, version, about = "Diagnostics toolkit")]
+pub struct Cli {
+    #[command(subcommand)]
+    command: Command,
+}
+
+#[derive(Subcommand)]
+pub enum Command {
+    Tail { path: String },
+    Snapshot { target: String },
+}
+
+pub fn run() -> Result<()> {
+    let cli = Cli::parse();
+    match cli.command {
+        Command::Tail { path } => {
+            let span = info_span!("tail", file = %path);
+            let _g = span.enter();
+            tail_logs(&path).wrap_err("log faylını oxumaq mümkün olmadı")?;
+        }
+        Command::Snapshot { target } => {
+            indicatif::ProgressBar::new_spinner().set_message("collecting snapshot");
+            collect_snapshot(&target).wrap_err("snapshot alınmadı")?;
+        }
+    }
+    info!("command finished");
+    Ok(())
+}
+</code></pre>
+    </section>
+
+    <section class="article-section">
+      <h2>Operator geri bildirimi</h2>
+      <p>
+        Progress bar-lar yalnız estetika üçün deyil — `indicatif` sayəsində hər addımda ölçülən metrikləri (fayl sayı,
+        göndərilən paketlər və s.) göstərmək mümkündür. Paralel işlərdə `MultiProgress` istifadə etməklə operator nəinki
+        prosesin getdiyini, həm də nə qədər vaxt qaldığını təxmin edə bilir.
+      </p>
+    </section>
+
+    <section class="article-section">
+      <h2>Qısa prinsiplər</h2>
+      <ul class="article-list">
+        {principles.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-description {
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-500);
+  }
+
+  .article-section {
+    margin-bottom: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .article-section h2 {
+    font-size: 1.3rem;
+  }
+
+  pre {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-gray-200);
+  }
+
+  .article-list {
+    padding-left: var(--space-lg);
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-list li {
+    margin-bottom: var(--space-sm);
+  }
+</style>

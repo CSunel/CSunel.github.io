@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const article = {
+  title: "Borrow Checker ilə Real Resurs İdarəsi",
+  description: "Rust-da ownership modeli ilə fayl, socket və telemetriya span resurslarının təhlükəsiz idarəsi",
+  date: "Texniki qeyd",
+  tags: ["Rust", "Ownership", "RAII", "Safety"]
+};
+
+const takeaways = [
+  "Resursların lifecycle-ı kod strukturuna bağlandıqda ayrı cleanup mərhələsi tələb olunmur",
+  "`Drop` implementasiyası ilə deterministik sərbəst buraxma əldə edilir",
+  "`Arc<Mutex<_>>` kimi interior mutability konstruksiyaları real concurrent vəziyyətlər üçün audit edilməlidir"
+];
+---
+
+<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
+  <article class="article">
+    <header class="article-header">
+      <p class="article-meta">{article.date}</p>
+      <h1>{article.title}</h1>
+      <p class="article-description">{article.description}</p>
+      <div class="article-tags">
+        {article.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <section class="article-section">
+      <h2>RAII ilə deterministik sərbəst buraxma</h2>
+      <p>
+        Rust-da resurslar (fayl deskriptoru, telemetry span, socket və s.) mütləq bir struktura bağlanmalıdır.
+        Struktura `Drop` implementasiyası verdikdə cleanup mərhələsi nə səhv nəticəsində, nə də happy-path
+        axınında unudulmur. Aşağıdakı nümunədə fayl izləyicisi kerneldən alınan handle-i idarə edir və span-ları
+        avtomatik bağlayır.
+      </p>
+      <pre><code class="language-rust">use std::{fs::File, io::Read};
+use tracing::{info_span, Span};
+
+pub struct WatchedFile {
+    path: String,
+    handle: File,
+    span: Span,
+}
+
+impl WatchedFile {
+    pub fn open(path: impl Into<String>) -> std::io::Result<Self> {
+        let path = path.into();
+        let span = info_span!("watched_file", file = %path);
+        let _guard = span.enter();
+        let handle = File::open(&path)?;
+        Ok(Self { path, handle, span })
+    }
+
+    pub fn read_all(&mut self) -> std::io::Result<String> {
+        let mut buf = String::new();
+        self.handle.read_to_string(&mut buf)?;
+        Ok(buf)
+    }
+}
+
+impl Drop for WatchedFile {
+    fn drop(&mut self) {
+        tracing::trace!(file = %self.path, "closing watched file");
+        // span guard drop olunur, fayl avtomatik bağlanır
+    }
+}</code></pre>
+    </section>
+
+    <section class="article-section">
+      <h2>Borrow kontraktının qorunması</h2>
+      <p>
+        Əgər resursun mutable referansı uzun vaxt saxlanırsa, call-site səviyyəsində concurrency riskləri yaranır.
+        Lokal `&mut T` referansları yalnız blok daxilində mövcud olmalı, daha uzun ömür tələb edilirsə `RefCell` və
+        ya `RwLock` kimi interior mutability nümunələri açıq şəkildə seçilməlidir. Beləliklə borrow checker real
+        təhlükəsizliyi qoruyur, developer isə niyyəti aydın ifadə edir.
+      </p>
+    </section>
+
+    <section class="article-section">
+      <h2>Yekun qeydlər</h2>
+      <ul class="article-list">
+        {takeaways.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-4xl) var(--space-lg);
+  }
+
+  .article-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-gray-500);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-description {
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-sm);
+    color: var(--color-gray-500);
+  }
+
+  .article-section {
+    margin-bottom: var(--space-3xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .article-section h2 {
+    font-size: 1.3rem;
+  }
+
+  pre {
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-gray-200);
+  }
+
+  .article-list {
+    padding-left: var(--space-lg);
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+  .article-list li {
+    margin-bottom: var(--space-sm);
+  }
+</style>

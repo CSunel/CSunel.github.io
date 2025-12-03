@@ -40,6 +40,46 @@
   --transition-slower: 600ms ease;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-black: #f7f7f7;
+    --color-black-light: #ffffff;
+    --color-black-lighter: #fcfcfc;
+    --color-gray-900: #e0e0e0;
+    --color-gray-800: #cfcfcf;
+    --color-gray-700: #b0b0b0;
+    --color-gray-600: #9a9a9a;
+    --color-gray-500: #7a7a7a;
+    --color-gray-400: #5a5a5a;
+    --color-gray-300: #3f3f3f;
+    --color-gray-200: #2b2b2b;
+    --color-gray-100: #181818;
+    --color-white: #0b0b0b;
+    --color-accent: #1c1c1c;
+  }
+
+  body {
+    background-color: var(--color-black-light);
+    color: var(--color-gray-300);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-gray-100);
+  }
+
+  a:hover {
+    color: var(--color-gray-200);
+  }
+
+  .section-title::after {
+    background: linear-gradient(90deg, var(--color-gray-400), transparent);
+  }
+
+  .noise-overlay {
+    opacity: 0.06;
+  }
+}
+
 *,
 *::before,
 *::after {

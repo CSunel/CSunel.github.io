@@ -5,6 +5,7 @@ const articles = [
     title: "Borrow Checker İlə Real Resurs İdarəsi",
     category: "Rust Core",
     timestamp: "Texniki qeydlər",
+    slug: "borrow-checker-resource-management",
     abstract: "Ownership modeli sadəcə kompilator xətası deyil. Yazıda resursların (file handle, socket, telemetry span) struktura yerləşdirilməsi, lifetime-ların modul sərhədlərində ötürülməsi və unsafe bloklarının izolyasiyası barədə danışılır.",
     sections: [
       "RAII pattern və Drop impl-ları ilə deterministik sərbəst buraxma",
@@ -17,6 +18,7 @@ const articles = [
     title: "Tokio-da Deterministik Asinxron Axın",
     category: "Async",
     timestamp: "Araşdırma qeydi",
+    slug: "tokio-deterministic-async-design",
     abstract: "Tokio runtime-ında structured concurrency qurarkən task-ların nəzarətli şəkildə dayandırılması, geri təzyiq mexanizmi və tracing span-larının idarəsi haqqında praktiki nəticələr.",
     sections: [
       "Cancellation token-ləri və cooperative stop",
@@ -29,6 +31,7 @@ const articles = [
     title: "Diaqnostika üçün CLI Platforması",
     category: "Tooling",
     timestamp: "Sahə qeydi",
+    slug: "diagnostic-cli-platform",
     abstract: "Sistem mühəndisləri üçün hazırlanan CLI-lər sadə `println!`-dən ibarət olmamalıdır. Yazıda `clap`, `miette`, `indicatif` və `tracing` kombinasiyası ilə istifadəçi və operator təcrübəsi eyni vaxtda necə qorunur.",
     sections: [
       "Strukturlaşdırılmış error report formatı",
@@ -60,7 +63,9 @@ const articles = [
             <span class="blog-category">{post.category}</span>
             <span class="blog-date">{post.timestamp}</span>
           </div>
-          <h3 class="blog-title">{post.title}</h3>
+          <h3 class="blog-title">
+            <a href={`/blog/${post.slug}`}>{post.title}</a>
+          </h3>
           <p class="blog-abstract">{post.abstract}</p>
           <ul class="blog-points">
             {post.sections.map((item) => (
@@ -70,6 +75,9 @@ const articles = [
           <div class="blog-note">
             Tam mətn şəxsi qeydlərdə saxlanılır; hazır olduqda açıq mənbə kimi paylaşmağı planlaşdırıram.
           </div>
+          <a class="blog-link" href={`/blog/${post.slug}`}>
+            Tam məqalə
+          </a>
         </article>
       ))}
     </div>
@@ -161,6 +169,10 @@ const articles = [
     line-height: 1.4;
   }
 
+  .blog-title a {
+    color: inherit;
+  }
+
   .blog-abstract {
     font-size: 0.95rem;
     color: var(--color-gray-400);
@@ -196,5 +208,22 @@ const articles = [
     font-size: 0.75rem;
     color: var(--color-gray-600);
     font-style: italic;
+  }
+
+  .blog-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    align-self: flex-start;
+    color: var(--color-gray-400);
+    border-bottom: 1px solid var(--color-gray-700);
+    padding-bottom: var(--space-xs);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .blog-link:hover {
+    color: var(--color-white);
+    border-color: var(--color-gray-400);
   }
 </style>
