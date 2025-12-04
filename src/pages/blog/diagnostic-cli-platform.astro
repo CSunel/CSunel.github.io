@@ -13,28 +13,8 @@ const principles = [
   "İstifadəçiyə verilən səhv mesajları `miette::Report` vasitəsilə strukturlu təqdim olunmalıdır",
   "Uzunmüddətli əməliyyatlarda `indicatif` progress bar-ları real vaxta yaxın məlumat göstərməlidir"
 ];
----
 
-<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
-  <article class="article">
-    <header class="article-header">
-      <p class="article-meta">{article.date}</p>
-      <h1>{article.title}</h1>
-      <p class="article-description">{article.description}</p>
-      <div class="article-tags">
-        {article.tags.map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-    </header>
-
-    <section class="article-section">
-      <h2>Strukturlaşdırılmış giriş</h2>
-      <p>
-        Aşağıdakı nümunə `clap` vasitəsilə alt-əmr seçimi edir və `miette` ilə səhv mesajlarını operator üçün oxunaqlı edir.
-        Hər alt-əmr `tracing` span-ına bükülür ki, eyni CLI həm interaktiv, həm də avtomatlaşdırılmış skriptlərdə izlənə bilsin.
-      </p>
-      <pre><code class="language-rust">use clap::{Parser, Subcommand};
+const cliSnippet = String.raw`use clap::{Parser, Subcommand};
 use miette::{Context, Result};
 use tracing::{info, info_span};
 
@@ -67,7 +47,29 @@ pub fn run() -> Result<()> {
     info!("command finished");
     Ok(())
 }
-</code></pre>
+`;
+---
+
+<BaseLayout title={`${article.title} | Rust qeydləri`} description={article.description}>
+  <article class="article">
+    <header class="article-header">
+      <p class="article-meta">{article.date}</p>
+      <h1>{article.title}</h1>
+      <p class="article-description">{article.description}</p>
+      <div class="article-tags">
+        {article.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <section class="article-section">
+      <h2>Strukturlaşdırılmış giriş</h2>
+      <p>
+        Aşağıdakı nümunə `clap` vasitəsilə alt-əmr seçimi edir və `miette` ilə səhv mesajlarını operator üçün oxunaqlı edir.
+        Hər alt-əmr `tracing` span-ına bükülür ki, eyni CLI həm interaktiv, həm də avtomatlaşdırılmış skriptlərdə izlənə bilsin.
+      </p>
+      <pre><code class="language-rust">{cliSnippet}</code></pre>
     </section>
 
     <section class="article-section">
